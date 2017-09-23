@@ -1,0 +1,56 @@
+{
+  "name": "ngx-image-editor",
+  "version": "0.0.01",
+  "description": "Angular 5 image editor",
+  "main": "./ngx-image-editor.js",
+  "scripts": {
+    "watch": "tsc -p src -w",
+    "build": "rm -rf lib && tsc -p src",
+    "prepublish": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Centroida/ngx-image-editor"
+  },
+  "keywords": [
+    "Angular 2",
+    "Angular 4",
+    "Angular 5",
+    "Angular material",
+    "ng",
+    "Editor",
+    "Image editor",
+    "Image Preview",
+    "Uploader"
+  ],
+  "author": "Centroida",
+  "license": "MIT",
+  "typings": "./ngx-image-editor.d.ts",
+  "homepage": "https://github.com/Centroida/ngx-image-editor",
+  "devDependencies": {
+    "@angular/animations": "4.3.6",
+    "@angular/cdk": "2.0.0-beta.11",
+    "@angular/http": "4.3.6",
+    "@angular/common": "4.3.6",
+    "@angular/compiler": "4.3.6",
+    "@angular/core": "4.3.6",
+    "@angular/flex-layout": "^2.0.0-beta.9",
+    "@angular/forms": "4.3.6",
+    "@angular/material": "2.0.0-beta.11",
+    "@angular/platform-browser": "4.3.6",
+    "@angular/platform-browser-dynamic": "4.3.6",
+    "@types/core-js": "^0.9.43",
+    "core-js": "^2.4.1",
+    "rxjs": "^5.1.0",
+    "zone.js": "^0.8.4",
+    "@types/node": "~6.0.60",
+    "codelyzer": "~2.0.0",
+    "ts-node": "~2.0.0",
+    "tslint": "~4.5.0",
+    "typescript": "2.4.0"
+  },
+  "dependencies": {
+    "@types/cropperjs": "0.0.26",
+    "cropperjs": "^1.0.0"
+  }
+}
