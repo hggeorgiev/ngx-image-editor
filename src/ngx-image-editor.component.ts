@@ -443,7 +443,7 @@ export class NgxImageEditorComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-    protected setImageWidth(canvasWidth: number) {
+    public setImageWidth(canvasWidth: number) {
         if (canvasWidth) {
             this.cropper.setCanvasData({
                 left: this.cropper.getCanvasData().left,
@@ -454,7 +454,7 @@ export class NgxImageEditorComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-    protected setImageHeight(canvasHeight: number) {
+    public setImageHeight(canvasHeight: number) {
         if (canvasHeight) {
             this.cropper.setCanvasData({
                 left: this.cropper.getCanvasData().left,
@@ -465,7 +465,7 @@ export class NgxImageEditorComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-    protected setCropBoxWidth(cropBoxWidth: number) {
+    public setCropBoxWidth(cropBoxWidth: number) {
         if (cropBoxWidth) {
             this.cropper.setCropBoxData({
                 left: this.cropper.getCropBoxData().left,
@@ -476,7 +476,7 @@ export class NgxImageEditorComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-    protected setCropBoxHeight(cropBoxHeight: number) {
+    public setCropBoxHeight(cropBoxHeight: number) {
         if (cropBoxHeight) {
             this.cropper.setCropBoxData({
                 left: this.cropper.getCropBoxData().left,

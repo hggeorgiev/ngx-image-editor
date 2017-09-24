@@ -8,6 +8,7 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "noImplicitAny": true,
+    "stripInternal": true,
     "typeRoots": [
       "../node_modules/@types"
     ],
