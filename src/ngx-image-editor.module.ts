@@ -6,7 +6,7 @@ import {NgxImageEditorComponent} from './ngx-image-editor.component';
 import {
     MdAutocompleteModule,
     MdButtonModule, MdButtonToggleModule, MdIconModule, MdInputModule, MdMenuModule, MdProgressSpinnerModule,
-    MdSliderModule,MatTooltipModule,MdDialogModule,
+    MdSliderModule,MdDialogModule,
     MdTabsModule, MdTooltipModule
 } from "@angular/material";
 import {FlexLayoutModule} from "@angular/flex-layout";
@@ -29,7 +29,6 @@ import {NoopAnimationsModule} from "@angular/platform-browser/animations";
         MdIconModule,
         MdDialogModule,
         MdInputModule,
-        MatTooltipModule,
         MdMenuModule,
         MdProgressSpinnerModule,
         MdTabsModule,
