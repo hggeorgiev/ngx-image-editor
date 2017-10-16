@@ -11,7 +11,7 @@ Awesome editor for Angular 5 based on [Angular Material](https://github.com/angu
 
 ## Getting started
 
-0. Pre-requisites:
+ Pre-requisites:
   Make sure you have installed [Angular Material](https://material.angular.io/guide/getting-started)
 
 1.Install `ngx-image-editor` via npm:
