@@ -14,6 +14,7 @@ Awesome editor for Angular 5 based on [Angular Material](https://github.com/angu
 
 **NOTE:** This package is still under development. Contributions are appreciated. 
 
+# [Demo](https://github.com/Centroida/ngx-image-editor/raw/master/assets/editor.png)
 
 # Usage
 
