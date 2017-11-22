@@ -1,10 +1,16 @@
-**NOTE:** This package is still under development. Contributions are appreciated. 
-# ngx-image-editor
-[![npm version](https://badge.fury.io/js/ngx-image-editor.svg)](https://badge.fury.io/js/ngx-image-editor)
+
+
+
+
+<p align="center">
+  <img  style="text-align: center;" src="https://github.com/Centroida/ngx-image-editor/raw/master/assets/editor.png">
+  <h1 align="center">ngx-image-editor</h1>
+</p>
+
 
 Awesome editor for Angular 5 based on [Angular Material](https://github.com/angular/material2)
-
-
+[![npm version](https://badge.fury.io/js/ngx-image-editor.svg)](https://badge.fury.io/js/ngx-image-editor)
+**NOTE:** This package is still under development. Contributions are appreciated. 
 
 
 # Usage
