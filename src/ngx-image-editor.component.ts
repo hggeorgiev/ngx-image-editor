@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, Inject, OnDestroy, ViewEncapsulation, Optional, ViewChild} from '@angular/core';
 import {MD_DIALOG_DATA, MdDialogRef} from '@angular/material';
+import {DomSanitizer} from "@angular/platform-browser";
 declare const Cropper: any;
 
 @Component({
@@ -39,7 +40,7 @@ declare const Cropper: any;
                 [style.background]="canvasFillColor"
                 class="img-container">
                 <img #previewimg
-                     [src]="state.url">
+                     [src]="_sanitizer.bypassSecurityTrustUrl(previewImageURL)">
             </div>
         </ng-template>
         <ng-template [ngIf]="croppedImage && !loading">
@@ -66,7 +67,7 @@ declare const Cropper: any;
                 <button md-icon-button color="accent" (click)="zoomChange(0.1, 'zoomIn')">
                     <md-icon>zoom_in</md-icon>
                 </button>
-                <md-slider [value]="sliderValue" [thumb-label]="true"></md-slider>
+                <md-slider [value]="sliderValue" (input)="zoomChange($event.value)" [thumb-label]="true"></md-slider>
                 <button md-icon-button color="accent" (click)="zoomChange(-0.1, 'zoomOut')">
                     <md-icon>zoom_out</md-icon>
                 </button>
@@ -97,7 +98,7 @@ declare const Cropper: any;
 
             <md-button-toggle-group
                 #selectRatio="mdButtonToggleGroup"
-                (change)="cropper.setAspectRatio($event.value)"
+                (change)="setRatio($event.value)"
                 value="{{ratios[0].value}}">
                 <md-button-toggle *ngFor="let ratio of ratios" value="{{ratio.value}}" mdTooltip="Aspect ratio">
                     {{ratio.text}}
@@ -316,7 +317,7 @@ declare const Cropper: any;
 
 export class NgxImageEditorComponent implements AfterViewInit, OnDestroy {
 
-    public state: any;
+    public state: NgxImageEditorConfig;
     public cropper: any;
     public croppedImage: string;
     public imageWidth: number;
@@ -330,24 +331,8 @@ export class NgxImageEditorComponent implements AfterViewInit, OnDestroy {
     public loading: boolean;
     private zoomIn: number;
     public sliderValue: number;
-
-    public ratios = [
-        {
-            value: 16 / 9, text: '16:9'
-        },
-        {
-            value: 4 / 3, text: '4:3'
-        },
-        {
-            value: 1 / 1, text: '1:1'
-        },
-        {
-            value: 2 / 3, text: '2:3'
-        },
-        {
-            value: 0 / 0, text: 'None'
-        }
-    ];
+    public ratios: NgxAspectRatio[];
+    public previewImageURL: any;
 
     @ViewChild('previewimg')
     public previewImage: any;
@@ -357,12 +342,15 @@ export class NgxImageEditorComponent implements AfterViewInit, OnDestroy {
 
     public constructor(public dialogRef: MdDialogRef<any>,
                        @Optional() @Inject(MD_DIALOG_DATA)
-                       private data: any) {
+                       private data: NgxImageEditorConfig,
+                       public _sanitizer: DomSanitizer) {
         this.zoomIn = 0;
         this.sliderValue = 0;
         this.loading = true;
         this.state = data;
         this.canvasFillColor = '#fff';
+
+        this.handleStateConfig();
     }
 
     public ngOnDestroy() {
@@ -370,7 +358,56 @@ export class NgxImageEditorComponent implements AfterViewInit, OnDestroy {
     }
 
     public ngAfterViewInit(): void {
-        this.initializeCropper();
+
+        // NOTE if we don't have a file meaning that loading the image will happen synchronously we can safely
+        // call initializeCropper in ngAfterViewInit. otherwise if we are using the FileReader to load a base64 image
+        // we need to call onloadend asynchronously.
+        if (!this.state.file) {
+            this.initializeCropper();
+        }
+    }
+
+    private handleStateConfig() {
+        this.state.type = this.state.type ? this.state.type : 'image/jpeg';
+
+        if (this.state.url) {
+            this.state.file = null;
+            this.previewImageURL = this.state.url;
+        }
+
+        if (this.state.file) {
+            this.state.url = null;
+            this.convertFileToBase64(this.state.file);
+        }
+
+        if (this.state.ratios) {
+            this.addRatios(this.state.ratios);
+        } else {
+            this.ratios = NGX_DEFAULT_RATIOS;
+        }
+    }
+
+    private convertFileToBase64(file: File) {
+        const reader = new FileReader();
+        reader.addEventListener("load", (e: any) => {
+            this.previewImageURL = e.target["result"];
+        }, false);
+        reader.readAsDataURL(file);
+        reader.onloadend = (() => {
+            // NOTE since getting the base64 image url happens asynchronously we need to initializeCropper after
+            // the image has been loaded.
+            this.initializeCropper();
+        });
+    }
+
+    private addRatios(ratios: RatioType[]) {
+        this.ratios = [];
+        ratios.forEach((ratioType: RatioType) => {
+            const addedRation = NGX_DEFAULT_RATIOS.find((ratio: NgxAspectRatio) => {
+                return ratio.text === ratioType;
+            });
+            this.ratios.push(addedRation);
+        });
     }
 
     public handleCrop() {
@@ -378,7 +415,7 @@ export class NgxImageEditorComponent implements AfterViewInit, OnDestroy {
         this.loading = true;
         setTimeout(() => {
             this.croppedImage = this.cropper.getCroppedCanvas({fillColor: this.canvasFillColor})
-                .toDataURL('image/jpeg');
+                .toDataURL(this.state.type);
 
             setTimeout(() => {
                 this.imageWidth = this.croppedImg.nativeElement.width;
@@ -402,14 +439,12 @@ export class NgxImageEditorComponent implements AfterViewInit, OnDestroy {
     }
 
     public saveImage() {
-        this.dialogRef.close(
-            {file: new File([this.blob], this.state.name, {type: this.state.type})}
-        );
+        this.dialogRef.close(new File([this.blob], this.state.name, {type: this.state.type}));
     }
 
     private initializeCropper() {
+        console.log(this.previewImage.nativeElement.width, "initializeCropper");
         this.cropper = new Cropper(this.previewImage.nativeElement, {
-            aspectRatio: 16 / 9,
             zoomOnWheel: true,
             viewMode: 0,
             center: true,
@@ -424,20 +459,50 @@ export class NgxImageEditorComponent implements AfterViewInit, OnDestroy {
                 this.canvasHeight = Math.round(this.cropper.getCanvasData().height);
             }
         });
+
+        this.setRatio(this.ratios[0].value);
+    }
+
+    public setRatio(value: any) {
+        this.cropper.setAspectRatio(value);
     }
 
     public zoomChange(input: any, zoom?: string) {
-        // TODO fix this implementation.
         if (this.croppedImage) {
-            zoom === 'zoomIn' ? this.zoomIn += 0.1 : this.zoomIn -= 0.1;
+            if (zoom) {
+                zoom === 'zoomIn' ? this.zoomIn += 0.1 : this.zoomIn -= 0.1;
+            } else {
+                if (input < this.sliderValue) {
+                    this.zoomIn = -Math.abs(input / 100);
+                } else {
+                    this.zoomIn = Math.abs(input / 100);
+                }
+            }
             if (this.zoomIn <= 0.1) {
                 this.zoomIn = 0.1;
             }
         } else {
-            this.cropper.zoom(input);
-            this.zoomIn = input;
+            if (zoom) {
+                this.cropper.zoom(input);
+                this.zoomIn = input;
+            } else {
+                if (input < this.sliderValue) {
+                    this.cropper.zoom(-Math.abs(input / 100));
+                } else {
+                    this.cropper.zoom(Math.abs(input / 100));
+                }
+                if (input === 0) {
+                    this.cropper.zoom(-1);
+                }
+            }
         }
-        input > 0 ? this.sliderValue += 1 : this.sliderValue -= 1;
+
+        if (!zoom) {
+            this.sliderValue = input;
+        } else {
+            input > 0 ? this.sliderValue += Math.abs(input * 100) : this.sliderValue -= Math.abs(input * 100);
+        }
+
         if (this.sliderValue < 0) {
             this.sliderValue = 0;
         }
@@ -508,3 +573,37 @@ export class NgxImageEditorComponent implements AfterViewInit, OnDestroy {
     }
 
 }
+
+
+export interface NgxImageEditorConfig {
+    name: string;
+    url?: string;
+    type?: string;
+    file?: File;
+    ratios?: Array<RatioType>;
+}
+
+export interface NgxAspectRatio {
+    value: number;
+    text: RatioType;
+}
+
+export type RatioType = "16:9" | '4:3' | '1:1' | '2:3' | 'Free';
+
+export const NGX_DEFAULT_RATIOS: Array<NgxAspectRatio> = [
+    {
+        value: 16 / 9, text: '16:9'
+    },
+    {
+        value: 4 / 3, text: '4:3'
+    },
+    {
+        value: 1 / 1, text: '1:1'
+    },
+    {
+        value: 2 / 3, text: '2:3'
+    },
+    {
+        value: 0 / 0, text: 'Free'
+    }
+];

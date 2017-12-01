@@ -1,6 +1,6 @@
 {
   "name": "ngx-image-editor",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "Angular 5 image editor",
   "main": "./ngx-image-editor.js",
   "scripts": {
