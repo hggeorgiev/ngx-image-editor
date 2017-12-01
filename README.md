@@ -48,12 +48,12 @@ Add `cropperjs` file paths in your `.angular-cli.json`
   
   ```json
   {
-  "styles": [
-    "../node_modules/cropperjs/dist/cropper.css"
-  ],
-  "scripts": [
-    "../node_modules/cropperjs/dist/cropper.js"
-  ]
+    "styles": [
+      "../node_modules/cropperjs/dist/cropper.css"
+    ],
+    "scripts": [
+      "../node_modules/cropperjs/dist/cropper.js"
+    ]
 }
   ```
 
