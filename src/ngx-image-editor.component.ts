@@ -317,7 +317,7 @@ declare const Cropper: any;
 
 export class NgxImageEditorComponent implements AfterViewInit, OnDestroy {
 
-    public state: NgxImageEditorConfig;
+    public state: EditorOptions;
     public cropper: any;
     public croppedImage: string;
     public imageWidth: number;
@@ -342,7 +342,7 @@ export class NgxImageEditorComponent implements AfterViewInit, OnDestroy {
 
     public constructor(public dialogRef: MdDialogRef<any>,
                        @Optional() @Inject(MD_DIALOG_DATA)
-                       private data: NgxImageEditorConfig,
+                       private data: EditorOptions,
                        public _sanitizer: DomSanitizer) {
         this.zoomIn = 0;
         this.sliderValue = 0;
@@ -362,26 +362,26 @@ export class NgxImageEditorComponent implements AfterViewInit, OnDestroy {
         // NOTE if we don't have a file meaning that loading the image will happen synchronously we can safely
         // call initializeCropper in ngAfterViewInit. otherwise if we are using the FileReader to load a base64 image
         // we need to call onloadend asynchronously.
-        if (!this.state.file) {
+        if (!this.state.File) {
             this.initializeCropper();
         }
     }
 
     private handleStateConfig() {
-        this.state.type = this.state.type ? this.state.type : 'image/jpeg';
+        this.state.ImageType = this.state.ImageType ? this.state.ImageType : 'image/jpeg';
 
-        if (this.state.url) {
-            this.state.file = null;
-            this.previewImageURL = this.state.url;
+        if (this.state.ImageUrl) {
+            this.state.File = null;
+            this.previewImageURL = this.state.ImageUrl;
         }
 
-        if (this.state.file) {
-            this.state.url = null;
-            this.convertFileToBase64(this.state.file);
+        if (this.state.File) {
+            this.state.ImageUrl = null;
+            this.convertFileToBase64(this.state.File);
         }
 
-        if (this.state.ratios) {
-            this.addRatios(this.state.ratios);
+        if (this.state.AspectRatios) {
+            this.addRatios(this.state.AspectRatios);
         } else {
             this.ratios = NGX_DEFAULT_RATIOS;
         }
@@ -415,7 +415,7 @@ export class NgxImageEditorComponent implements AfterViewInit, OnDestroy {
         this.loading = true;
         setTimeout(() => {
             this.croppedImage = this.cropper.getCroppedCanvas({fillColor: this.canvasFillColor})
-                .toDataURL(this.state.type);
+                .toDataURL(this.state.ImageType);
 
             setTimeout(() => {
                 this.imageWidth = this.croppedImg.nativeElement.width;
@@ -439,7 +439,7 @@ export class NgxImageEditorComponent implements AfterViewInit, OnDestroy {
     }
 
     public saveImage() {
-        this.dialogRef.close(new File([this.blob], this.state.name, {type: this.state.type}));
+        this.dialogRef.close(new File([this.blob], this.state.ImageName, {type: this.state.ImageType}));
     }
 
     private initializeCropper() {
@@ -575,12 +575,12 @@ export class NgxImageEditorComponent implements AfterViewInit, OnDestroy {
 }
 
 
-export interface NgxImageEditorConfig {
-    name: string;
-    url?: string;
-    type?: string;
-    file?: File;
-    ratios?: Array<RatioType>;
+export interface EditorOptions {
+    ImageName: string;
+    ImageUrl?: string;
+    ImageType?: string;
+    File?: File;
+    AspectRatios?: Array<RatioType>;
 }
 
 export interface NgxAspectRatio {
@@ -588,7 +588,7 @@ export interface NgxAspectRatio {
     text: RatioType;
 }
 
-export type RatioType = "16:9" | '4:3' | '1:1' | '2:3' | 'Free';
+export type RatioType = "16:9" | '4:3' | '1:1' | '2:3' | 'Default';
 
 export const NGX_DEFAULT_RATIOS: Array<NgxAspectRatio> = [
     {
@@ -604,6 +604,6 @@ export const NGX_DEFAULT_RATIOS: Array<NgxAspectRatio> = [
         value: 2 / 3, text: '2:3'
     },
     {
-        value: 0 / 0, text: 'Free'
+        value: 0 / 0, text: 'Default'
     }
 ];
