@@ -20,16 +20,19 @@ Awesome editor for Angular 5 based on [Angular Material](https://github.com/angu
 
 ## Getting started
 
- Pre-requisites:
-  Make sure you have installed [Angular Material](https://material.angular.io/guide/getting-started)
+### Pre-requisites:
 
-1.Install `ngx-image-editor` via npm:
+  - Angular Material 2.0.0-beta.11
+  - Cropper js 1.1.3
 
-```bash
-npm install --save ngx-image-editor
-```
+### Install:
 
-2.Import the `NgxImageEditorModule` within your app:
+  ```bash
+  npm install --save ngx-image-editor
+  ```
+
+### Usage:
+Import the `NgxImageEditorModule` within your app:
 
 ```js
 import {NgxImageEditorModule} from "ngx-image-editor";
@@ -41,36 +44,49 @@ import {NgxImageEditorModule} from "ngx-image-editor";
 })
 ```
 
-3.Since ngx-image-editor depends on [Cropperjs](https://github.com/fengyuanchen/cropperjs)
-  Add these in your .angular-cli.json
+Add `cropperjs` file paths in your `.angular-cli.json`
+  
   ```json
+  {
   "styles": [
-          "../node_modules/cropperjs/dist/cropper.css",
-        ],
-        "scripts": [
-          "../node_modules/cropperjs/dist/cropper.js"
-        ]
+    "../node_modules/cropperjs/dist/cropper.css"
+  ],
+  "scripts": [
+    "../node_modules/cropperjs/dist/cropper.js"
+  ]
+}
   ```
 
-4. Ready to use NgxImageEditorComponent like the following example.
+Ready to use `NgxImageEditorComponent` like the following example.
 ```js
 openEditor() {
-        const dialogRef = this.dialog.open(NgxImageEditorComponent, {
-            width: '800px',
-            height: 'auto',
-            data: {
-                name: 'Some image',
-                url: 'https://static.pexels.com/photos/248797/pexels-photo-248797.jpeg',
-                type: 'image/jpeg'
-            }
-        });
+    const dialogRef = this.dialog.open(NgxImageEditorComponent, {
+        width: '800px',
+        height: 'auto',
+        data: {
+            name: 'Some image',
+            ratios: ["4:3", "16:9"],
+            file: this.file
+            url: 'https://static.pexels.com/photos/248797/pexels-photo-248797.jpeg',
+            type: 'image/jpeg'
+        } as NgxImageEditorConfig
+    });
 
-        dialogRef.afterClosed().subscribe(result => {
-            console.log('The editor was closed');
-            console.log(result);
-        });
-    }
+    dialogRef.afterClosed().subscribe(result => {
+        console.log('The editor was closed');
+        console.log(result);
+    });
+}
 ```
 
-# TODO
- 
+### NgxImageEditorConfig
+
+- name: `String`
+- url: `String` 
+- type: `String`
+- file: `File`
+- ratios: `RatioType[]`
+
+### RatioTypes
+
+- "16:9" | '4:3' | '1:1' | '2:3' | 'Free'
