@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, Inject, OnDestroy, ViewEncapsulation, Optional, ViewChild} from '@angular/core';
-import {MD_DIALOG_DATA, MdDialogRef} from '@angular/material';
+import {MD_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {DomSanitizer} from "@angular/platform-browser";
 declare const Cropper: any;
 
@@ -340,7 +340,7 @@ export class NgxImageEditorComponent implements AfterViewInit, OnDestroy {
     @ViewChild('croppedImg')
     public croppedImg: any;
 
-    public constructor(public dialogRef: MdDialogRef<any>,
+    public constructor(public dialogRef: MatDialogRef<any>,
                        @Optional() @Inject(MD_DIALOG_DATA)
                        private data: EditorOptions,
                        public _sanitizer: DomSanitizer) {
