@@ -1,5 +1,6 @@
 {
   "name": "ngx-image-editor",
+  "version": "2.0.0",
   "description": "Angular 5 Image Editor",
 
   "scripts": {
