@@ -5,7 +5,7 @@
   "scripts": {
     "clean": "rm -rf dist && rm -rf lib",
     "prepublish": "npm run clean && npm run build",
-    "build": "npm run prepublish &&  ng-packagr -p ng-package.json",
+    "build": "ng-packagr -p ng-package.json",
     "semantic-release": "semantic-release pre && npm publish dist/ && semantic-release post"
   },
   "main": "./bundles/ng.umd.js",
