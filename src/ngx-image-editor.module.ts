@@ -1,46 +1,20 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {NgxImageEditorComponent} from './ngx-image-editor.component';
-import {
-    MdAutocompleteModule,
-    MdButtonModule, MdButtonToggleModule, MdIconModule, MdInputModule, MdMenuModule, MdProgressSpinnerModule,
-    MdSliderModule,MdDialogModule,
-    MdTabsModule, MdTooltipModule
-} from "@angular/material";
-import {FlexLayoutModule} from "@angular/flex-layout";
-import {NoopAnimationsModule} from "@angular/platform-browser/animations";
-
+export * from './ngx-image-editor.component';
 @NgModule({
 
     declarations: [
         NgxImageEditorComponent
     ],
-    providers: [
-    ],
-    imports: [
-        BrowserModule,
-        FormsModule,
-        ReactiveFormsModule,
-        NoopAnimationsModule,
-        FlexLayoutModule,
-        MdButtonModule,
-        MdIconModule,
-        MdDialogModule,
-        MdInputModule,
-        MdMenuModule,
-        MdProgressSpinnerModule,
-        MdTabsModule,
-        MdTooltipModule,
-        MdButtonToggleModule,
-        MdSliderModule,
-        MdAutocompleteModule
-    ],
     exports: [NgxImageEditorComponent],
     entryComponents: [NgxImageEditorComponent]
 })
-export class NgxImageEditorModule {
-    public constructor() {}
-}
 
+
+export class NgxImageEditorModule {
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: NgxImageEditorModule,
+        };
+    }
+}

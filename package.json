@@ -1,13 +1,17 @@
 {
   "name": "ngx-image-editor",
-  "version": "0.0.21",
+  "version": "0.0.23",
   "description": "Angular 5 image editor",
-  "main": "./ngx-image-editor.js",
+
   "scripts": {
-    "clear-lib": "rm -rf lib",
-    "prepublish": "npm run clear-lib && npm run ngc-build",
-    "ngc-build": "ngc -p ./tsconfig-ngc.json"
+    "clean": "rm -rf dist && rm -rf lib",
+    "prepublish": "npm run clean",
+    "build": "npm run clean &&  ng-packagr -p ng-package.json",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
+  "main": "./bundles/ng.umd.js",
+  "module": "./ngx-image-editor.es5.js",
+  "typings": "./ngx-image-editor.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/Centroida/ngx-image-editor"
@@ -25,16 +29,15 @@
   ],
   "author": "Centroida",
   "license": "MIT",
-  "typings": "./ngx-image-editor.d.ts",
   "homepage": "https://github.com/Centroida/ngx-image-editor",
   "devDependencies": {
     "@angular/animations": "4.3.6",
     "@angular/cdk": "2.0.0-beta.11",
     "@angular/common": "4.3.6",
     "@angular/compiler": "4.3.6",
-    "@angular/compiler-cli": "^4.4.3",
+    "@angular/compiler-cli": "4.4.3",
     "@angular/core": "4.3.6",
-    "@angular/flex-layout": "^2.0.0-beta.9",
+    "@angular/flex-layout": "2.0.0-beta.12",
     "@angular/forms": "4.3.6",
     "@angular/http": "4.3.6",
     "@angular/material": "2.0.0-beta.11",
