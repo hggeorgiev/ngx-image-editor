@@ -161,10 +161,7 @@ declare const Cropper: any;
 
 `,
     styles: [`
-
-        /*
-     * Copyright (c) 2017 Connecto.AI. All rights reserved.
-     */
+        
         .ngx-image-editor-component .photo-editor-header {
             display: flex;
             justify-content: space-around;
