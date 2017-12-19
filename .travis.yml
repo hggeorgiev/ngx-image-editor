@@ -9,6 +9,7 @@ node_js:
 
 install:
   - npm install -g ng-packagr
+  - npm install -g typescript
   - npm install
 
 after_success:
