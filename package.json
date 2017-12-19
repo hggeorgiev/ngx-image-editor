@@ -6,7 +6,7 @@
     "clean": "rm -rf dist && rm -rf lib",
     "prepublish": "npm run clean",
     "build": "npm run prepublish &&  ng-packagr -p ng-package.json",
-    "semantic-release": "semantic-release pre && npm run buld && npm publish dist/ && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish dist/ && semantic-release post"
   },
   "main": "./bundles/ng.umd.js",
   "module": "./ngx-image-editor.es5.js",
