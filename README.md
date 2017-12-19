@@ -45,11 +45,11 @@ Awesome editor for Angular 5 based on [Angular Material](https://github.com/angu
       ```
 
 ### Usage:
-  - `Step 1`: Install `ngx-image-editor`:
+   ####  Step 1: Install `ngx-image-editor`:
     ```bash
      npm install --save ngx-image-editor
     ```
-  - `Step 2`: Import the `NgxImageEditorModule` within your app:
+  #### Step 2`: Import the `NgxImageEditorModule` within your app:
     ```js
       import {NgxImageEditorModule} from "ngx-image-editor";
 
