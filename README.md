@@ -12,7 +12,6 @@ Awesome editor for Angular 5 based on [Angular Material](https://github.com/angu
 
 [![npm version](https://badge.fury.io/js/ngx-image-editor.svg)](https://badge.fury.io/js/ngx-image-editor)
 
-**NOTE:** This package is still under development. Contributions are appreciated.
 
 **[Live Demo](https://ngx-image-editor.firebaseapp.com/)**
 
