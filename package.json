@@ -4,7 +4,7 @@
   "description": "Angular 5 Image Editor",
   "scripts": {
     "clean": "rm -rf dist && rm -rf lib",
-    "prepublish": "npm run clean",
+    "prepublish": "npm run clean && npm run build",
     "build": "npm run prepublish &&  ng-packagr -p ng-package.json",
     "semantic-release": "semantic-release pre && npm publish dist/ && semantic-release post"
   },
