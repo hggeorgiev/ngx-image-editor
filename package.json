@@ -3,9 +3,10 @@
   "version": "0.0.0-development",
   "description": "Angular 5 Image Editor",
   "scripts": {
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist ",
+    "prepublish": "npm run clean",
     "build": "ng-packagr -p ng-package.json",
-    "semantic-release": "semantic-release pre && npm publish dist/ && semantic-release post"
+    "semantic-release": "semantic-release pre && npm run build && npm publish dist/ && semantic-release post"
   },
   "main": "./bundles/ng.umd.js",
   "module": "./ngx-image-editor.es5.js",
@@ -60,9 +61,20 @@
     "analyzeCommits": {
       "preset": "angular",
       "releaseRules": [
-        {"type": "docs", "scope": "README", "release": "patch"},
-        {"type": "refactor", "scope": "/src", "release": "minor"},
-        {"type": "refactor", "release": "patch"}
+        {
+          "type": "docs",
+          "scope": "README",
+          "release": "patch"
+        },
+        {
+          "type": "refactor",
+          "scope": "/src",
+          "release": "minor"
+        },
+        {
+          "type": "refactor",
+          "release": "patch"
+        }
       ]
     }
   }
