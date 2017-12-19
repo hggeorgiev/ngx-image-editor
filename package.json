@@ -20,11 +20,13 @@
     "Angular 4",
     "Angular 5",
     "Angular material",
+    "Angular",
     "ng",
     "Editor",
-    "Image editor",
+    "Image Editor",
     "Image Preview",
     "Uploader"
+
   ],
   "author": "Centroida",
   "license": "MIT",
