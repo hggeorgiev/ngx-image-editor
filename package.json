@@ -1,12 +1,11 @@
 {
   "name": "ngx-image-editor",
-  "version": "2.0.0",
+  "version": "0.0.0-development",
   "description": "Angular 5 Image Editor",
-
   "scripts": {
     "clean": "rm -rf dist && rm -rf lib",
     "prepublish": "npm run clean",
-    "build": "npm run clean &&  ng-packagr -p ng-package.json",
+    "build": "npm run prepublish &&  ng-packagr -p ng-package.json",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "main": "./bundles/ng.umd.js",
@@ -51,7 +50,8 @@
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
     "typescript": "2.4.0",
-    "zone.js": "^0.8.4"
+    "zone.js": "^0.8.4",
+    "semantic-release": "^8.2.0"
   },
   "dependencies": {
     "@types/cropperjs": "0.0.26",
