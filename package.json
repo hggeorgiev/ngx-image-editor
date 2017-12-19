@@ -1,7 +1,7 @@
 {
   "name": "ngx-image-editor",
   "version": "0.0.23",
-  "description": "Angular 5 image editor",
+  "description": "Angular 5 Image Editor",
 
   "scripts": {
     "clean": "rm -rf dist && rm -rf lib",
