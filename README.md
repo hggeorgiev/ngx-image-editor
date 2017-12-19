@@ -19,20 +19,20 @@ Awesome editor for Angular 5 based on [Angular Material](https://github.com/angu
 
 ### Pre-requisites:
 
-  - [Angular Material](https://material.angular.io/)
+  #### [Angular Material](https://material.angular.io/)
     ```bash
       npm install --save --save-exact @angular/material@2.0.0-beta.11
      ```
-  - [Angular Flex-Layout](https://github.com/angular/flex-layout)
+ #### [Angular Flex-Layout](https://github.com/angular/flex-layout)
      ```bash
       npm install --save --save-exact @angular/flex-layout@2.0.0-beta.9
     ```
-  - [Cropperjs](https://github.com/fengyuanchen/cropper)
-    - `Step 1`: Install cropperjs
+  #### [Cropperjs](https://github.com/fengyuanchen/cropper)
+    ##### Step 1: Install cropperjs
       ```bash
         npm install --save cropperjs
       ```
-    - `Step 2`: Add `cropperjs` file paths in your `.angular-cli.json`
+    ##### Step 2: Add `cropperjs` file paths in your `.angular-cli.json`
       ```json
         {
             "styles": [
@@ -49,7 +49,7 @@ Awesome editor for Angular 5 based on [Angular Material](https://github.com/angu
     ```bash
      npm install --save ngx-image-editor
     ```
-  #### Step 2`: Import the `NgxImageEditorModule` within your app:
+  #### Step 2: Import the `NgxImageEditorModule` within your app:
     ```js
       import {NgxImageEditorModule} from "ngx-image-editor";
 
