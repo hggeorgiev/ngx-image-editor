@@ -1,4 +1,4 @@
-**NOTE:** This package is still under development. Contributions are appreciated. 
+
 # ngx-image-editor
 [![npm version](https://badge.fury.io/js/ngx-image-editor.svg)](https://badge.fury.io/js/ngx-image-editor)
 
