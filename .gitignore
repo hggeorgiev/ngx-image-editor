@@ -8,7 +8,6 @@ build
 
 # Remove tsc generated js and map file
 *.map
-ngx-image-editor.js
 src/ngx-image-editor.component.js
 src/ngx-image-editor.component.js.map
 src/ngx-image-editor.module.js
