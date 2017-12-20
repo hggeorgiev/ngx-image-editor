@@ -8,6 +8,7 @@ import {
     MdTabsModule, MdTooltipModule
 } from "@angular/material";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {CommonModule} from "@angular/common";
 
 
 export * from './ngx-image-editor.component';
@@ -16,6 +17,7 @@ export * from './ngx-image-editor.component';
 
     imports: [
         FormsModule,
+        CommonModule,
         ReactiveFormsModule,
         FlexLayoutModule,
         MdButtonModule,
