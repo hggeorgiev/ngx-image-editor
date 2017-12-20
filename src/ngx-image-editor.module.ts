@@ -35,15 +35,10 @@ export * from './ngx-image-editor.component';
     declarations: [
         NgxImageEditorComponent
     ],
-    exports: [NgxImageEditorComponent, MdDialogModule],
+    exports: [NgxImageEditorComponent],
     entryComponents: [NgxImageEditorComponent]
 })
 
 
 export class NgxImageEditorModule {
-    static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: NgxImageEditorModule,
-        };
-    }
 }
