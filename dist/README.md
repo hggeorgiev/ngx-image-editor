@@ -11,7 +11,7 @@
 Awesome editor for Angular 5 based on [Angular Material](https://github.com/angular/material2)
 
 [![npm version](https://badge.fury.io/js/ngx-image-editor.svg)](https://badge.fury.io/js/ngx-image-editor)
-
+[![Build Status](https://travis-ci.org/Centroida/ngx-image-editor.svg?branch=master)](https://travis-ci.org/Centroida/ngx-image-editor)
 
 **[Live Demo](https://ngx-image-editor.firebaseapp.com/)**
 
@@ -19,21 +19,27 @@ Awesome editor for Angular 5 based on [Angular Material](https://github.com/angu
 
 ### Pre-requisites:
 
-  #### [Angular Material](https://material.angular.io/)
-    ```bash
-      npm install --save --save-exact @angular/material@2.0.0-beta.11
-     ```
- #### [Angular Flex-Layout](https://github.com/angular/flex-layout)
-     ```bash
-      npm install --save --save-exact @angular/flex-layout@2.0.0-beta.9
-    ```
-  #### [Cropperjs](https://github.com/fengyuanchen/cropper)
-    ##### Step 1: Install cropperjs
-      ```bash
-        npm install --save cropperjs
-      ```
-    ##### Step 2: Add `cropperjs` file paths in your `.angular-cli.json`
-      ```json
+#### [Angular Material](https://material.angular.io/)
+
+```bash
+  npm install --save --save-exact @angular/material@2.0.0-beta.11
+```
+#### [Angular Flex-Layout](https://github.com/angular/flex-layout)
+
+```bash
+   npm install --save --save-exact @angular/flex-layout@2.0.0-beta.9
+```
+
+#### [Cropperjs](https://github.com/fengyuanchen/cropper)
+
+##### Step 1: Install cropperjs
+    
+```bash
+    npm install --save cropperjs
+```
+##### Step 2: Add `cropperjs` file paths in your `.angular-cli.json`
+      
+```json
         {
             "styles": [
               "../node_modules/cropperjs/dist/cropper.css"
@@ -42,15 +48,17 @@ Awesome editor for Angular 5 based on [Angular Material](https://github.com/angu
               "../node_modules/cropperjs/dist/cropper.js"
             ]
         }
-      ```
+```
 
 ### Usage:
-   ####  Step 1: Install `ngx-image-editor`:
-    ```bash
+
+#####  Step 1: Install `ngx-image-editor`:
+```bash
      npm install --save ngx-image-editor
-    ```
-  #### Step 2: Import the `NgxImageEditorModule` within your app:
-    ```js
+```
+    
+##### Step 2: Import the `NgxImageEditorModule` within your app:
+```js
       import {NgxImageEditorModule} from "ngx-image-editor";
 
       @NgModule({
@@ -58,7 +66,7 @@ Awesome editor for Angular 5 based on [Angular Material](https://github.com/angu
           NgxImageEditorModule
         ]
       })
-    ```
+```
 ### EditorOptions:
   - ImageName: `String` (required)
   - ImageUrl: `String`  (optional)
