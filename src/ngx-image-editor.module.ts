@@ -8,7 +8,6 @@ import {
     MdTabsModule, MdTooltipModule
 } from "@angular/material";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {NoopAnimationsModule} from "@angular/platform-browser/animations";
 
 
 export * from './ngx-image-editor.component';
@@ -18,7 +17,6 @@ export * from './ngx-image-editor.component';
     imports: [
         FormsModule,
         ReactiveFormsModule,
-        NoopAnimationsModule,
         FlexLayoutModule,
         MdButtonModule,
         MdIconModule,
@@ -35,7 +33,7 @@ export * from './ngx-image-editor.component';
     declarations: [
         NgxImageEditorComponent
     ],
-    exports: [NgxImageEditorComponent , MdDialogModule],
+    exports: [NgxImageEditorComponent],
     entryComponents: [NgxImageEditorComponent]
 })
 
