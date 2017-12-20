@@ -35,7 +35,7 @@ export * from './ngx-image-editor.component';
     declarations: [
         NgxImageEditorComponent
     ],
-    exports: [NgxImageEditorComponent],
+    exports: [NgxImageEditorComponent , MdDialogModule],
     entryComponents: [NgxImageEditorComponent]
 })
 
