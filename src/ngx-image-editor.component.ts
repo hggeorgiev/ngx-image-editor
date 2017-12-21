@@ -463,7 +463,6 @@ export class NgxImageEditorComponent implements AfterViewInit, OnInit, OnDestroy
     }
 
     private initializeCropper() {
-        console.log(this.previewImage.nativeElement.width, "initializeCropper");
         this.cropper = new Cropper(this.previewImage.nativeElement, {
             zoomOnWheel: true,
             viewMode: 0,
