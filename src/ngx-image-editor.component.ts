@@ -342,8 +342,8 @@ export class NgxImageEditorComponent implements AfterViewInit, OnInit, OnDestroy
     public croppedImg: any;
 
     @Input()
-    public set configOption(options: EditorOptions) {
-        this.state = options;
+    public set config(config: EditorOptions) {
+        this.state = config;
     }
 
     @Output()
@@ -373,7 +373,7 @@ export class NgxImageEditorComponent implements AfterViewInit, OnInit, OnDestroy
         // NOTE if we don't have a file meaning that loading the image will happen synchronously we can safely
         // call initializeCropper in ngAfterViewInit. otherwise if we are using the FileReader to load a base64 image
         // we need to call onloadend asynchronously..
-        if (!this.state.File) {
+        if (!this.state.File && this.state.ImageUrl) {
             this.initializeCropper();
         }
     }
@@ -395,6 +395,15 @@ export class NgxImageEditorComponent implements AfterViewInit, OnInit, OnDestroy
             this.addRatios(this.state.AspectRatios);
         } else {
             this.ratios = NGX_DEFAULT_RATIOS;
+        }
+
+
+        if (!this.state.ImageUrl && !this.state.File) {
+            console.error("Property ImageUrl or File is missing, Please provide an url or file in the config options.");
+        }
+
+        if (!this.state.ImageName) {
+            console.error("Property ImageName is missing, Please provide a name for the image.");
         }
     }
 
