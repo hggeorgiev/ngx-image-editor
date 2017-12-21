@@ -3,9 +3,9 @@
   "version": "1.0.0-semantically-released",
   "description": "Angular 5 Image Editor",
   "scripts": {
-    "clean": "rm -rf lib ",
-    "build": "ngc -p ./tsconfig-ngc.json",
-    "semantic-release": "npm run clean && semantic-release pre && npm run build && npm publish && semantic-release post"
+    "clean": "rm -rf dist ",
+    "build": "ng-packagr -p ng-package.json",
+    "semantic-release": "npm run clean && semantic-release pre && npm run build && npm publish dist/ && semantic-release post"
   },
   "main": "./bundles/ng.umd.js",
   "module": "./ngx-image-editor.es5.js",

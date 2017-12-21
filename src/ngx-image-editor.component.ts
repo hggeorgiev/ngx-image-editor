@@ -1,5 +1,7 @@
-import {AfterViewInit, Component, Inject, OnDestroy, ViewEncapsulation, Optional, ViewChild} from '@angular/core';
-import {MD_DIALOG_DATA, MdDialogRef} from '@angular/material';
+import {
+    AfterViewInit, Component, OnDestroy, ViewEncapsulation, ViewChild,
+    OnInit, Input, Output, EventEmitter
+} from '@angular/core';
 declare const Cropper: any;
 
 @Component({
@@ -22,7 +24,7 @@ declare const Cropper: any;
         <button md-icon-button mdTooltip="Fullscreen">
             <md-icon>fullscreen</md-icon>
         </button>
-        <button md-icon-button mdTooltip="Close" (click)="dialogRef.close()">
+        <button md-icon-button mdTooltip="Close" (click)="close.emit()">
             <md-icon>clear</md-icon>
         </button>
     </div>
@@ -314,7 +316,7 @@ declare const Cropper: any;
     encapsulation: ViewEncapsulation.None
 })
 
-export class NgxImageEditorComponent implements AfterViewInit, OnDestroy {
+export class NgxImageEditorComponent implements AfterViewInit, OnInit, OnDestroy {
 
     public state: EditorOptions;
     public cropper: any;
@@ -339,15 +341,26 @@ export class NgxImageEditorComponent implements AfterViewInit, OnDestroy {
     @ViewChild('croppedImg')
     public croppedImg: any;
 
-    public constructor(public dialogRef: MdDialogRef<any>,
-                       @Optional() @Inject(MD_DIALOG_DATA)
-                       private data: EditorOptions) {
+    @Input()
+    public set configOption(options: EditorOptions) {
+        this.state = options;
+    }
+
+    @Output()
+    public close: EventEmitter<void> = new EventEmitter<void>();
+
+    @Output()
+    public file: EventEmitter<File> = new EventEmitter<File>();
+
+    public constructor() {
         this.zoomIn = 0;
         this.sliderValue = 0;
         this.loading = true;
-        this.state = data;
         this.canvasFillColor = '#fff';
+        this.state = new EditorOptions();
+    }
 
+    public ngOnInit() {
         this.handleStateConfig();
     }
 
@@ -437,7 +450,7 @@ export class NgxImageEditorComponent implements AfterViewInit, OnDestroy {
     }
 
     public saveImage() {
-        this.dialogRef.close(new File([this.blob], this.state.ImageName, {type: this.state.ImageType}));
+        this.file.emit(new File([this.blob], this.state.ImageName, {type: this.state.ImageType}));
     }
 
     private initializeCropper() {
@@ -573,7 +586,7 @@ export class NgxImageEditorComponent implements AfterViewInit, OnDestroy {
 }
 
 
-export interface EditorOptions {
+export class EditorOptions {
     ImageName: string;
     ImageUrl?: string;
     ImageType?: string;
