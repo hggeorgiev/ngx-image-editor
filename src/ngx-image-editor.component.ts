@@ -1,6 +1,5 @@
 import {AfterViewInit, Component, Inject, OnDestroy, ViewEncapsulation, Optional, ViewChild} from '@angular/core';
 import {MD_DIALOG_DATA, MdDialogRef} from '@angular/material';
-import {DomSanitizer} from "@angular/platform-browser";
 declare const Cropper: any;
 
 @Component({
@@ -40,7 +39,7 @@ declare const Cropper: any;
                 [style.background]="canvasFillColor"
                 class="img-container">
                 <img #previewimg
-                     [src]="_sanitizer.bypassSecurityTrustUrl(previewImageURL)">
+                     [src]="previewImageURL">
             </div>
         </ng-template>
         <ng-template [ngIf]="croppedImage && !loading">
@@ -342,8 +341,7 @@ export class NgxImageEditorComponent implements AfterViewInit, OnDestroy {
 
     public constructor(public dialogRef: MdDialogRef<any>,
                        @Optional() @Inject(MD_DIALOG_DATA)
-                       private data: EditorOptions,
-                       public _sanitizer: DomSanitizer) {
+                       private data: EditorOptions) {
         this.zoomIn = 0;
         this.sliderValue = 0;
         this.loading = true;
