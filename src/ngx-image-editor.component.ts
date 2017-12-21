@@ -359,7 +359,7 @@ export class NgxImageEditorComponent implements AfterViewInit, OnDestroy {
 
         // NOTE if we don't have a file meaning that loading the image will happen synchronously we can safely
         // call initializeCropper in ngAfterViewInit. otherwise if we are using the FileReader to load a base64 image
-        // we need to call onloadend asynchronously.
+        // we need to call onloadend asynchronously..
         if (!this.state.File) {
             this.initializeCropper();
         }
