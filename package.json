@@ -30,52 +30,52 @@
   "license": "MIT",
   "homepage": "https://github.com/Centroida/ngx-image-editor",
   "devDependencies": {
-      "@angular/animations": "5.2.0",
-      "@angular/cdk": "5.2.4",
-      "@angular/common": "5.2.0",
-      "@angular/compiler": "5.2.0",
-      "@angular/compiler-cli": "5.2.0",
-      "@angular/core": "5.2.0",
-      "@angular/flex-layout": "5.0.0-beta.13",
-      "@angular/forms": "5.2.0",
-      "@angular/http": "5.2.0",
-      "@angular/material": "5.2.4",
-      "@angular/platform-browser": "5.2.0",
-      "@angular/platform-browser-dynamic": "5.2.0",
-      "@types/core-js": "0.9.46",
-      "@types/node": "~6.0.60",
-      "codelyzer": "4.2.1",
-      "core-js": "2.5.3",
-      "rxjs": "5.5.7",
-      "ts-node": "5.0.1",
-      "tslint": "5.9.1",
-      "typescript": "2.5.3",
-      "zone.js": "^0.8.19",
-      "semantic-release": "^8.2.0"
-    },
-    "dependencies": {
-      "@types/cropperjs": "0.0.26",
-      "cropperjs": "^1.0.0"
-    },
-    "release": {
-      "analyzeCommits": {
-        "preset": "angular",
-        "releaseRules": [
-          {
-            "type": "docs",
-            "scope": "README.md",
-            "release": "patch"
-          },
-          {
-            "type": "refactor",
-            "scope": "/src",
-            "release": "minor"
-          },
-          {
-            "type": "refactor",
-            "release": "patch"
-          }
-        ]
-      }
+    "@angular/animations": "5.2.0",
+    "@angular/cdk": "5.2.4",
+    "@angular/common": "5.2.0",
+    "@angular/compiler": "5.2.0",
+    "@angular/compiler-cli": "^5.2.0",
+    "@angular/core": "5.2.0",
+    "@angular/flex-layout": "5.0.0-beta.13",
+    "@angular/forms": "5.2.0",
+    "@angular/http": "5.2.0",
+    "@angular/material": "5.2.4",
+    "@angular/platform-browser": "5.2.0",
+    "@angular/platform-browser-dynamic": "5.2.0",
+    "@types/core-js": "0.9.46",
+    "@types/node": "~6.0.60",
+    "codelyzer": "4.2.1",
+    "core-js": "2.5.3",
+    "rxjs": "5.5.7",
+    "ts-node": "5.0.1",
+    "tslint": "5.9.1",
+    "typescript": "2.5.3",
+    "zone.js": "^0.8.19",
+    "semantic-release": "^8.2.0"
+  },
+  "dependencies": {
+    "@types/cropperjs": "0.0.26",
+    "cropperjs": "^1.0.0"
+  },
+  "release": {
+    "analyzeCommits": {
+      "preset": "angular",
+      "releaseRules": [
+        {
+          "type": "docs",
+          "scope": "README.md",
+          "release": "patch"
+        },
+        {
+          "type": "refactor",
+          "scope": "/src",
+          "release": "minor"
+        },
+        {
+          "type": "refactor",
+          "release": "patch"
+        }
+      ]
     }
   }
+}
