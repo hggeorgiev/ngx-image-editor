@@ -6,4 +6,5 @@ Thumbs.db
 .DS_Store
 node_modules
 src
+demo
 .idea

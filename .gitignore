@@ -5,6 +5,7 @@ jspm_packages
 .idea
 lib
 build
+demo/node_modules
 
 # Remove tsc generated js and map file
 *.map

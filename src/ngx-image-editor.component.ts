@@ -7,161 +7,161 @@ declare const Cropper: any;
 @Component({
     selector: 'ngx-image-editor',
     template: `
-    <div class="ngx-image-editor-component" fxLayout="column" fxLayoutAlign="center stretch">
-    <div md-dialog-title class="photo-editor-header">
-        <md-icon>photo</md-icon>
-        <div class="file-name">{{state.name}}</div>
-        <button [hidden]="croppedImage" md-icon-button color="accent" mdTooltip="Crop image" (click)="handleCrop()">
-            <md-icon>crop</md-icon>
-        </button>
-        <button md-icon-button
-                [hidden]="croppedImage"
-                color="accent"
-                mdTooltip="Center canvas"
-                (click)="centerCanvas()">
-            <md-icon>center_focus_strong</md-icon>
-        </button>
-        <button md-icon-button mdTooltip="Fullscreen">
-            <md-icon>fullscreen</md-icon>
-        </button>
-        <button md-icon-button mdTooltip="Close" (click)="close.emit()">
-            <md-icon>clear</md-icon>
-        </button>
-    </div>
+        <div class="ngx-image-editor-component" fxLayout="column" fxLayoutAlign="center stretch">
+            <div mat-dialog-title class="photo-editor-header">
+                <mat-icon>photo</mat-icon>
+                <div class="file-name">{{state.name}}</div>
+                <button [hidden]="croppedImage" mat-icon-button color="accent" matTooltip="Crop image" (click)="handleCrop()">
+                    <mat-icon>crop</mat-icon>
+                </button>
+                <button mat-icon-button
+                        [hidden]="croppedImage"
+                        color="accent"
+                        matTooltip="Center canvas"
+                        (click)="centerCanvas()">
+                    <mat-icon>center_focus_strong</mat-icon>
+                </button>
+                <button mat-icon-button matTooltip="Fullscreen">
+                    <mat-icon>fullscreen</mat-icon>
+                </button>
+                <button mat-icon-button matTooltip="Close" (click)="close.emit()">
+                    <mat-icon>clear</mat-icon>
+                </button>
+            </div>
 
-    <div md-dialog-content
-         #dialogCropContainer
-         class="dialog-crop-container"
-         fxLayout="column"
-         fxLayoutAlign="center center"
-         fxFlex="grow">
-        <ng-template [ngIf]="!croppedImage">
+            <div mat-dialog-content
+                 #dialogCropContainer
+                 class="dialog-crop-container"
+                 fxLayout="column"
+                 fxLayoutAlign="center center"
+                 fxFlex="grow">
+                <ng-template [ngIf]="!croppedImage">
+                    <div
+                            [style.visibility]="loading ? 'hidden' : 'visible'"
+                            [style.background]="canvasFillColor"
+                            class="img-container">
+                        <img #previewimg
+                             [src]="previewImageURL">
+                    </div>
+                </ng-template>
+                <ng-template [ngIf]="croppedImage && !loading">
+                    <div class="cropped-image">
+                        <img #croppedImg
+                             [ngStyle]="{'transform': 'scale(' + zoomIn + ')'}"
+                             [src]="croppedImage">
+                    </div>
+                </ng-template>
+                <mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
+            </div>
+
             <div
-                [style.visibility]="loading ? 'hidden' : 'visible'"
-                [style.background]="canvasFillColor"
-                class="img-container">
-                <img #previewimg
-                     [src]="previewImageURL">
+                    class="dialog-button-actions"
+                    mat-dialog-actions
+                    fxLayout="column"
+                    align="start"
+                    fxFlex="nogrow">
+
+                <div class="image-detail-toolbar" fxFlex="100">
+                    <div class="image-dimensions"><b>Width:</b> {{imageWidth}}px <b>Height:</b> {{imageHeight}}px</div>
+                    <span fxFlex></span>
+                    <div class="image-zoom">
+                        <button mat-icon-button color="accent" (click)="zoomChange(0.1, 'zoomIn')">
+                            <mat-icon>zoom_in</mat-icon>
+                        </button>
+                        <mat-slider [value]="sliderValue" (input)="zoomChange($event.value)" [thumb-label]="true"></mat-slider>
+                        <button mat-icon-button color="accent" (click)="zoomChange(-0.1, 'zoomOut')">
+                            <mat-icon>zoom_out</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <div class="cropped-image-buttons" [style.visibility]="!croppedImage ? 'hidden' : 'visible'">
+                    <button mat-raised-button color="accent" (click)="saveImage()">
+                        <mat-icon>done</mat-icon>
+                        <span>Save</span>
+                    </button>
+                    <button mat-raised-button color="accent" (click)="undoCrop()">
+                        <mat-icon>undo</mat-icon>
+                        <span>Undo</span>
+                    </button>
+                </div>
+                <div fxLayout="row" [style.visibility]="croppedImage ? 'hidden' : 'visible'">
+                    <mat-button-toggle-group
+                            #dragMode="matButtonToggleGroup"
+                            (change)="cropper.setDragMode($event.value)"
+                            value="move">
+                        <mat-button-toggle value="move" matTooltip="Move mode">
+                            <mat-icon>open_with</mat-icon>
+                        </mat-button-toggle>
+                        <mat-button-toggle value="crop" matTooltip="Crop mode">
+                            <mat-icon>crop</mat-icon>
+                        </mat-button-toggle>
+                    </mat-button-toggle-group>
+
+                    <mat-button-toggle-group
+                            #selectRatio="matButtonToggleGroup"
+                            (change)="setRatio($event.value)"
+                            value="{{ratios[0].value}}">
+                        <mat-button-toggle *ngFor="let ratio of ratios" value="{{ratio.value}}" matTooltip="Aspect ratio">
+                            {{ratio.text}}
+                        </mat-button-toggle>
+                    </mat-button-toggle-group>
+
+                </div>
+                <div
+                        class="canvas-config"
+                        fxLayout="row"
+                        fxLayoutAlign="start space-between"
+                        fxLayoutGap="10px"
+                        [style.visibility]="croppedImage ? 'hidden' : 'visible'">
+
+                    <mat-form-field color="accent"  fxFlex="100">
+                        <input matInput
+                               fxFlex="100"
+                               id="imageWidth"
+                               placeholder="Canvas width"
+                               type="number"
+                               (ngModelChange)="setImageWidth($event)"
+                               [ngModel]="canvasWidth">
+                    </mat-form-field>
+
+                    <mat-form-field color="accent"  fxFlex="100">
+                        <input matInput
+                               fxFlex="100"
+                               id="imageHeight"
+                               placeholder="Canvas height"
+                               type="number"
+                               (ngModelChange)="setImageHeight($event)"
+                               [ngModel]="canvasHeight">
+                    </mat-form-field>
+
+                    <mat-form-field color="accent"  fxFlex="100">
+                        <input matInput
+                               fxFlex="100"
+                               id="cropBoxWidth"
+                               placeholder="Cropbox width"
+                               type="number"
+                               (ngModelChange)="setCropBoxWidth($event)"
+                               [ngModel]="cropBoxWidth">
+                    </mat-form-field>
+
+                    <mat-form-field color="accent"  fxFlex="100">
+                        <input matInput
+                               fxFlex="100"
+                               id="cropBoxHeight"
+                               placeholder="Cropbox height"
+                               type="number"
+                               (ngModelChange)="setCropBoxHeight($event)"
+                               [ngModel]="cropBoxHeight">
+                    </mat-form-field>
+
+                    <!--<md2-colorpicker [(ngModel)]="canvasFillColor"  placeholder="Canvas color"></md2-colorpicker>-->
+
+                </div>
             </div>
-        </ng-template>
-        <ng-template [ngIf]="croppedImage && !loading">
-            <div class="cropped-image">
-                <img #croppedImg
-                     [ngStyle]="{'transform': 'scale(' + zoomIn + ')'}"
-                     [src]="croppedImage">
-            </div>
-        </ng-template>
-        <md-progress-spinner *ngIf="loading" mode="indeterminate"></md-progress-spinner>
-    </div>
-
-    <div
-        class="dialog-button-actions"
-        md-dialog-actions
-        fxLayout="column"
-        align="start"
-        fxFlex="nogrow">
-
-        <div class="image-detail-toolbar" fxFlex="100">
-            <div class="image-dimensions"><b>Width:</b> {{imageWidth}}px <b>Height:</b> {{imageHeight}}px</div>
-            <span fxFlex></span>
-            <div class="image-zoom">
-                <button md-icon-button color="accent" (click)="zoomChange(0.1, 'zoomIn')">
-                    <md-icon>zoom_in</md-icon>
-                </button>
-                <md-slider [value]="sliderValue" (input)="zoomChange($event.value)" [thumb-label]="true"></md-slider>
-                <button md-icon-button color="accent" (click)="zoomChange(-0.1, 'zoomOut')">
-                    <md-icon>zoom_out</md-icon>
-                </button>
-            </div>
-        </div>
-        <div class="cropped-image-buttons" [style.visibility]="!croppedImage ? 'hidden' : 'visible'">
-            <button md-raised-button color="accent" (click)="saveImage()">
-                <md-icon>done</md-icon>
-                <span>Save</span>
-            </button>
-            <button md-raised-button color="accent" (click)="undoCrop()">
-                <md-icon>undo</md-icon>
-                <span>Undo</span>
-            </button>
-        </div>
-        <div fxLayout="row" [style.visibility]="croppedImage ? 'hidden' : 'visible'">
-            <md-button-toggle-group
-                #dragMode="mdButtonToggleGroup"
-                (change)="cropper.setDragMode($event.value)"
-                value="move">
-                <md-button-toggle value="move" mdTooltip="Move mode">
-                    <md-icon>open_with</md-icon>
-                </md-button-toggle>
-                <md-button-toggle value="crop" mdTooltip="Crop mode">
-                    <md-icon>crop</md-icon>
-                </md-button-toggle>
-            </md-button-toggle-group>
-
-            <md-button-toggle-group
-                #selectRatio="mdButtonToggleGroup"
-                (change)="setRatio($event.value)"
-                value="{{ratios[0].value}}">
-                <md-button-toggle *ngFor="let ratio of ratios" value="{{ratio.value}}" mdTooltip="Aspect ratio">
-                    {{ratio.text}}
-                </md-button-toggle>
-            </md-button-toggle-group>
 
         </div>
-        <div
-            class="canvas-config"
-            fxLayout="row"
-            fxLayoutAlign="start space-between"
-            fxLayoutGap="10px"
-            [style.visibility]="croppedImage ? 'hidden' : 'visible'">
 
-            <md-input-container color="accent"  fxFlex="100">
-                <input mdInput
-                       fxFlex="100"
-                       id="imageWidth"
-                       placeholder="Canvas width"
-                       type="number"
-                       (ngModelChange)="setImageWidth($event)"
-                       [ngModel]="canvasWidth">
-            </md-input-container>
-
-            <md-input-container color="accent"  fxFlex="100">
-                <input mdInput
-                       fxFlex="100"
-                       id="imageHeight"
-                       placeholder="Canvas height"
-                       type="number"
-                       (ngModelChange)="setImageHeight($event)"
-                       [ngModel]="canvasHeight">
-            </md-input-container>
-
-            <md-input-container color="accent"  fxFlex="100">
-                <input mdInput
-                       fxFlex="100"
-                       id="cropBoxWidth"
-                       placeholder="Cropbox width"
-                       type="number"
-                       (ngModelChange)="setCropBoxWidth($event)"
-                       [ngModel]="cropBoxWidth">
-            </md-input-container>
-
-            <md-input-container color="accent"  fxFlex="100">
-                <input mdInput
-                       fxFlex="100"
-                       id="cropBoxHeight"
-                       placeholder="Cropbox height"
-                       type="number"
-                       (ngModelChange)="setCropBoxHeight($event)"
-                       [ngModel]="cropBoxHeight">
-            </md-input-container>
-
-            <!--<md2-colorpicker [(ngModel)]="canvasFillColor"  placeholder="Canvas color"></md2-colorpicker>-->
-
-        </div>
-    </div>
-
-</div>
-
-`,
+    `,
     styles: [`
 
         /*
@@ -187,7 +187,7 @@ declare const Cropper: any;
             white-space: nowrap;
             overflow: hidden;
         }
-        .ngx-image-editor-component md-progress-spinner {
+        .ngx-image-editor-component mat-progress-spinner {
             position: absolute;
         }
         .ngx-image-editor-component .dialog-crop-container {
@@ -220,7 +220,7 @@ declare const Cropper: any;
         .ngx-image-editor-component .dialog-button-actions:last-child {
             margin: 0;
         }
-        .ngx-image-editor-component .dialog-button-actions > DIV md-button-toggle-group {
+        .ngx-image-editor-component .dialog-button-actions > DIV mat-button-toggle-group {
             margin: 20px;
             background-color: white;
         }
@@ -435,7 +435,7 @@ export class NgxImageEditorComponent implements AfterViewInit, OnInit, OnDestroy
         this.loading = true;
         setTimeout(() => {
             this.croppedImage = this.cropper.getCroppedCanvas({fillColor: this.canvasFillColor})
-                .toDataURL(this.state.ImageType);
+                    .toDataURL(this.state.ImageType);
 
             setTimeout(() => {
                 this.imageWidth = this.croppedImg.nativeElement.width;
