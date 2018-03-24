@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  public config = {
+    ImageName: 'Some image',
+    AspectRatios: ["4:3", "16:9"],
+    ImageUrl: 'https://static.pexels.com/photos/248797/pexels-photo-248797.jpeg',
+    ImageType: 'image/jpeg'
+  };
 }
