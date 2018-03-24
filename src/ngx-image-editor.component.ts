@@ -10,7 +10,7 @@ declare const Cropper: any;
         <div class="ngx-image-editor-component" fxLayout="column" fxLayoutAlign="center stretch">
             <div mat-dialog-title class="photo-editor-header">
                 <mat-icon>photo</mat-icon>
-                <div class="file-name">{{state.name}}</div>
+                <div class="file-name">{{state.ImageName}}</div>
                 <button [hidden]="croppedImage" mat-icon-button color="accent" matTooltip="Crop image" (click)="handleCrop()">
                     <mat-icon>crop</mat-icon>
                 </button>
