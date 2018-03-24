@@ -2,10 +2,10 @@ import {ModuleWithProviders, NgModule} from '@angular/core';
 import {NgxImageEditorComponent} from './ngx-image-editor.component';
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {
-    MdAutocompleteModule,
-    MdButtonModule, MdButtonToggleModule, MdIconModule, MdInputModule, MdMenuModule, MdProgressSpinnerModule,
-    MdSliderModule,MdDialogModule,
-    MdTabsModule, MdTooltipModule
+    MatAutocompleteModule,
+    MatButtonModule, MatButtonToggleModule, MatIconModule, MatInputModule, MatMenuModule, MatProgressSpinnerModule,
+    MatSliderModule,MatDialogModule,
+    MatTabsModule, MatTooltipModule
 } from "@angular/material";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
@@ -20,17 +20,17 @@ export * from './ngx-image-editor.component';
         CommonModule,
         ReactiveFormsModule,
         FlexLayoutModule,
-        MdButtonModule,
-        MdIconModule,
-        MdDialogModule,
-        MdInputModule,
-        MdMenuModule,
-        MdProgressSpinnerModule,
-        MdTabsModule,
-        MdTooltipModule,
-        MdButtonToggleModule,
-        MdSliderModule,
-        MdAutocompleteModule
+        MatButtonModule,
+        MatIconModule,
+        MatDialogModule,
+        MatInputModule,
+        MatMenuModule,
+        MatProgressSpinnerModule,
+        MatTabsModule,
+        MatTooltipModule,
+        MatButtonToggleModule,
+        MatSliderModule,
+        MatAutocompleteModule
     ],
     declarations: [
         NgxImageEditorComponent
