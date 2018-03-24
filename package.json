@@ -3,6 +3,7 @@
   "version": "1.0.0-semantically-released",
   "description": "Angular 5 Image Editor",
   "scripts": {
+    "test": "echo \"Test success\"",
     "clean": "rm -rf dist ",
     "build": "ng-packagr -p ng-package.json",
     "semantic-release": "npm run clean && semantic-release pre && npm run build && npm publish dist/ && semantic-release post"
