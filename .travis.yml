@@ -10,7 +10,10 @@ node_js:
 
 install:
   - npm install -g @angular/cli
+  - npm install -g @angular/compiler
+  - npm install -g @angular/compiler-cli
   - npm install -g ng-packagr
+  - npm install -g tsickle
   - npm install -g typescript
   - npm install
 
