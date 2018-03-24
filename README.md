@@ -22,12 +22,12 @@ Awesome editor for Angular 5 based on [Angular Material](https://github.com/angu
 #### [Angular Material](https://material.angular.io/)
 
 ```bash
-  npm install --save --save-exact @angular/material@2.0.0-beta.11
+  npm install --save @angular/material
 ```
 #### [Angular Flex-Layout](https://github.com/angular/flex-layout)
 
 ```bash
-   npm install --save --save-exact @angular/flex-layout@2.0.0-beta.9
+   npm install --save @angular/flex-layout
 ```
 
 #### [Cropperjs](https://github.com/fengyuanchen/cropper)
@@ -49,6 +49,17 @@ Awesome editor for Angular 5 based on [Angular Material](https://github.com/angu
             ]
         }
 ```
+
+### Properties
+   **@Input()**
+   config: EditorOptions
+   
+   **@Output()**
+   close: EventEmitter<void>
+  
+   **@Output()**
+   file: EventEmitter<File>
+
 
 ### Usage:
 
@@ -81,22 +92,41 @@ Awesome editor for Angular 5 based on [Angular Material](https://github.com/angu
 
 
 ### Example
-```js
-openEditor() {
-    const dialogRef = this.dialog.open(NgxImageEditorComponent, {
-        width: '800px',
-        height: 'auto',
-        data: {
-            ImageName: 'Some image',
-            AspectRatios: ["4:3", "16:9"],
-            ImageUrl: 'https://static.pexels.com/photos/248797/pexels-photo-248797.jpeg',
-            ImageType: 'image/jpeg'
-        } as EditorOptions
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-        console.log('The editor was closed');
-        console.log(result);
-    });
+```html
+
+<!--Html-->
+<ngx-image-editor 
+      [config]="config" 
+      (close)="close($event)" 
+      (file)="getEditedFile($event)">
+</ngx-image-editor>
+
+```
+```typescript
+
+// Component
+public config: EditorOptions = {
+     ImageName: 'Some image',
+     AspectRatios: ["4:3", "16:9"],
+     ImageUrl: 'https://static.pexels.com/photos/248797/pexels-photo-248797.jpeg',
+     ImageType: 'image/jpeg'
+}
+
+public close() {
+    
+}
+
+public getEditedFile(file: File) {
+    
 }
 ```
+
+
+## TODO
+  * Fix demo (deploy to github pages)
+  * Make close button optional.
+  * Add support for fullscreen and make width of image placehoder to be auto.
+
+
+
