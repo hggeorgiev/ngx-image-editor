@@ -13,7 +13,7 @@ Awesome editor for Angular 5 based on [Angular Material](https://github.com/angu
 [![npm version](https://badge.fury.io/js/ngx-image-editor.svg)](https://badge.fury.io/js/ngx-image-editor)
 [![Build Status](https://travis-ci.org/Centroida/ngx-image-editor.svg?branch=master)](https://travis-ci.org/Centroida/ngx-image-editor)
 
-**[Live Demo](https://ngx-image-editor.firebaseapp.com/)**
+**[Live Demo](https://centroida.github.io/ngx-image-editor/)**
 
 ## Getting started
 
@@ -124,7 +124,6 @@ public getEditedFile(file: File) {
 
 
 ## TODO
-  * Fix demo (deploy to github pages)
   * Make close button optional.
   * Add support for fullscreen and make width of image placehoder to be auto.
 
