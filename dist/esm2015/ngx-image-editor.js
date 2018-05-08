@@ -358,7 +358,7 @@ NgxImageEditorComponent.decorators = [
                         <button mat-icon-button color="accent" (click)="zoomChange(0.1, 'zoomIn')">
                             <mat-icon>zoom_in</mat-icon>
                         </button>
-                        <mat-slider [value]="sliderValue" (input)="zoomChange($event.value)" [thumb-label]="true"></mat-slider>
+                        <mat-slider [value]="sliderValue" (input)="zoomChange($event.value)" thumbLabel></mat-slider>
                         <button mat-icon-button color="accent" (click)="zoomChange(-0.1, 'zoomOut')">
                             <mat-icon>zoom_out</mat-icon>
                         </button>
@@ -453,10 +453,7 @@ NgxImageEditorComponent.decorators = [
 
     `,
                 styles: [`
-
-        /*
-     * Copyright (c) 2017 Connecto.AI. All rights reserved.
-     */
+      
         .ngx-image-editor-component .photo-editor-header {
             display: flex;
             justify-content: space-around;
