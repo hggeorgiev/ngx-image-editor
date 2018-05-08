@@ -124,8 +124,8 @@ public getEditedFile(file: File) {
 
 
 ## TODO
-  * Make close button optional.
-  * Add support for fullscreen and make width of image placehoder to be auto.
+    - Fix adding of styles/scripts
+    - Fix requirements (need animationsmodule)
 
 
 

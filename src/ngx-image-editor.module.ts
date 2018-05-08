@@ -9,6 +9,7 @@ import {
 } from "@angular/material";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 
 export * from './ngx-image-editor.component';
@@ -17,6 +18,7 @@ export * from './ngx-image-editor.component';
 
     imports: [
         FormsModule,
+        BrowserAnimationsModule,
         CommonModule,
         ReactiveFormsModule,
         FlexLayoutModule,

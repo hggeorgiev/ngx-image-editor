@@ -1,8 +1,8 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/flex-layout'), require('@angular/material'), require('@angular/forms'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define('ngx-image-editor', ['exports', '@angular/core', '@angular/flex-layout', '@angular/material', '@angular/forms', '@angular/common'], factory) :
-	(factory((global['ngx-image-editor'] = {}),global.ng.core,global.ng['flex-layout'],global.ng.material,global.ng.forms,global.ng.common));
-}(this, (function (exports,core,flexLayout,material,forms,common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/flex-layout'), require('@angular/material'), require('@angular/forms'), require('@angular/common'), require('@angular/platform-browser/animations')) :
+	typeof define === 'function' && define.amd ? define('ngx-image-editor', ['exports', '@angular/core', '@angular/flex-layout', '@angular/material', '@angular/forms', '@angular/common', '@angular/platform-browser/animations'], factory) :
+	(factory((global['ngx-image-editor'] = {}),global.ng.core,global.ng['flex-layout'],global.ng.material,global.ng.forms,global.ng.common,global.ng.platformBrowser.animations));
+}(this, (function (exports,core,flexLayout,material,forms,common,animations) { 'use strict';
 
 var NgxImageEditorComponent = /** @class */ (function () {
     function NgxImageEditorComponent() {
@@ -282,6 +282,7 @@ NgxImageEditorModule.decorators = [
     { type: core.NgModule, args: [{
                 imports: [
                     forms.FormsModule,
+                    animations.BrowserAnimationsModule,
                     common.CommonModule,
                     forms.ReactiveFormsModule,
                     flexLayout.FlexLayoutModule,
