@@ -16,6 +16,7 @@ install:
   - yarn global add typescript
   - yarn install
   - yarn add  @angular/compiler
+  - npm install --save-dev @angular/compiler
 
 after_success:
   - npm run semantic-release
