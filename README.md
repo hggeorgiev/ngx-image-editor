@@ -122,6 +122,6 @@ export class AppComponent {
 
 | [![Hristo Georgiev](https://github.com/hggeorgiev.png?size=100)](https://github.com/hggeorgiev) | [![Taulant Disha](https://github.com/taulantdisha.png?size=100)](https://github.com/taulantdisha) |
 |---------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
-| [Hristo Gorgiev](https://github.com/hggeorgiev)                                                | [Taulant Disha](https://github.com/taulantdisha)                                              |
+| [Hristo Georgiev](https://github.com/hggeorgiev)                                                | [Taulant Disha](https://github.com/taulantdisha)                                              |
 
 
