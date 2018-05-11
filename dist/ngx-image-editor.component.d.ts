@@ -1,4 +1,4 @@
-import { AfterViewInit, OnDestroy, OnInit, EventEmitter } from '@angular/core';
+import { AfterViewInit, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 export declare class NgxImageEditorComponent implements AfterViewInit, OnInit, OnDestroy {
     state: EditorOptions;
     cropper: any;
@@ -40,7 +40,15 @@ export declare class NgxImageEditorComponent implements AfterViewInit, OnInit, O
     setCropBoxHeight(cropBoxHeight: number): void;
     centerCanvas(): void;
 }
-export declare class EditorOptions {
+export interface IEditorOptions {
+    ImageName: string;
+    ImageUrl?: string;
+    ImageType?: string;
+    File?: File;
+    AspectRatios?: Array<RatioType>;
+}
+export declare type RatioType = "16:9" | '4:3' | '1:1' | '2:3' | 'Default';
+export declare class EditorOptions implements IEditorOptions {
     ImageName: string;
     ImageUrl?: string;
     ImageType?: string;
@@ -51,5 +59,4 @@ export interface NgxAspectRatio {
     value: number;
     text: RatioType;
 }
-export declare type RatioType = "16:9" | '4:3' | '1:1' | '2:3' | 'Default';
 export declare const NGX_DEFAULT_RATIOS: Array<NgxAspectRatio>;

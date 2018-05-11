@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ViewChild, Input, Output, EventEmitter, NgModule } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatIconModule, MatInputModule, MatMenuModule, MatProgressSpinnerModule, MatSliderModule, MatDialogModule, MatTabsModule, MatTooltipModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -298,298 +298,281 @@ NgxImageEditorComponent.decorators = [
     { type: Component, args: [{
                 selector: 'ngx-image-editor',
                 template: `
-        <div class="ngx-image-editor-component" fxLayout="column" fxLayoutAlign="center stretch">
-            <div mat-dialog-title class="photo-editor-header">
-                <mat-icon>photo</mat-icon>
-                <div class="file-name">{{state.ImageName}}</div>
-                <button [hidden]="croppedImage" mat-icon-button color="accent" matTooltip="Crop image" (click)="handleCrop()">
-                    <mat-icon>crop</mat-icon>
-                </button>
-                <button mat-icon-button
-                        [hidden]="croppedImage"
-                        color="accent"
-                        matTooltip="Center canvas"
-                        (click)="centerCanvas()">
-                    <mat-icon>center_focus_strong</mat-icon>
-                </button>
-                <button mat-icon-button matTooltip="Fullscreen">
-                    <mat-icon>fullscreen</mat-icon>
-                </button>
-                <button mat-icon-button matTooltip="Close" (click)="close.emit()">
-                    <mat-icon>clear</mat-icon>
-                </button>
-            </div>
+      <div class="ngx-image-editor-component" fxLayout="column" fxLayoutAlign="center stretch">
+          <div mat-dialog-title class="photo-editor-header">
+              <mat-icon>photo</mat-icon>
+              <div class="file-name">{{state.ImageName}}</div>
+              <button [hidden]="croppedImage" mat-icon-button color="accent" matTooltip="Crop image"
+                      (click)="handleCrop()">
+                  <mat-icon>crop</mat-icon>
+              </button>
+              <button mat-icon-button
+                      [hidden]="croppedImage"
+                      color="accent"
+                      matTooltip="Center canvas"
+                      (click)="centerCanvas()">
+                  <mat-icon>center_focus_strong</mat-icon>
+              </button>
+              <button mat-icon-button matTooltip="Fullscreen">
+                  <mat-icon>fullscreen</mat-icon>
+              </button>
+              <button mat-icon-button matTooltip="Close" (click)="close.emit()">
+                  <mat-icon>clear</mat-icon>
+              </button>
+          </div>
 
-            <div mat-dialog-content
-                 #dialogCropContainer
-                 class="dialog-crop-container"
-                 fxLayout="column"
-                 fxLayoutAlign="center center"
-                 fxFlex="grow">
-                <ng-template [ngIf]="!croppedImage">
-                    <div
-                            [style.visibility]="loading ? 'hidden' : 'visible'"
-                            [style.background]="canvasFillColor"
-                            class="img-container">
-                        <img #previewimg
-                             [src]="previewImageURL">
-                    </div>
-                </ng-template>
-                <ng-template [ngIf]="croppedImage && !loading">
-                    <div class="cropped-image">
-                        <img #croppedImg
-                             [ngStyle]="{'transform': 'scale(' + zoomIn + ')'}"
-                             [src]="croppedImage">
-                    </div>
-                </ng-template>
-                <mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
-            </div>
+          <div mat-dialog-content
+               #dialogCropContainer
+               class="dialog-crop-container"
+               fxLayout="column"
+               fxLayoutAlign="center center"
+               fxFlex="grow">
+              <ng-template [ngIf]="!croppedImage">
+                  <div
+                          [style.visibility]="loading ? 'hidden' : 'visible'"
+                          [style.background]="canvasFillColor"
+                          class="img-container">
+                      <img #previewimg
+                           [src]="previewImageURL">
+                  </div>
+              </ng-template>
+              <ng-template [ngIf]="croppedImage && !loading">
+                  <div class="cropped-image">
+                      <img #croppedImg
+                           [ngStyle]="{'transform': 'scale(' + zoomIn + ')'}"
+                           [src]="croppedImage">
+                  </div>
+              </ng-template>
+              <mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
+          </div>
 
-            <div
-                    class="dialog-button-actions"
-                    mat-dialog-actions
-                    fxLayout="column"
-                    align="start"
-                    fxFlex="nogrow">
+          <div
+                  class="dialog-button-actions"
+                  mat-dialog-actions
+                  fxLayout="column"
+                  align="start"
+                  fxFlex="nogrow">
 
-                <div class="image-detail-toolbar" fxFlex="100">
-                    <div class="image-dimensions"><b>Width:</b> {{imageWidth}}px <b>Height:</b> {{imageHeight}}px</div>
-                    <span fxFlex></span>
-                    <div class="image-zoom">
-                        <button mat-icon-button color="accent" (click)="zoomChange(0.1, 'zoomIn')">
-                            <mat-icon>zoom_in</mat-icon>
-                        </button>
-                        <mat-slider [value]="sliderValue" (input)="zoomChange($event.value)" thumbLabel></mat-slider>
-                        <button mat-icon-button color="accent" (click)="zoomChange(-0.1, 'zoomOut')">
-                            <mat-icon>zoom_out</mat-icon>
-                        </button>
-                    </div>
-                </div>
-                <div class="cropped-image-buttons" [style.visibility]="!croppedImage ? 'hidden' : 'visible'">
-                    <button mat-raised-button color="accent" (click)="saveImage()">
-                        <mat-icon>done</mat-icon>
-                        <span>Save</span>
-                    </button>
-                    <button mat-raised-button color="accent" (click)="undoCrop()">
-                        <mat-icon>undo</mat-icon>
-                        <span>Undo</span>
-                    </button>
-                </div>
-                <div fxLayout="row" [style.visibility]="croppedImage ? 'hidden' : 'visible'">
-                    <mat-button-toggle-group
-                            #dragMode="matButtonToggleGroup"
-                            (change)="cropper.setDragMode($event.value)"
-                            value="move">
-                        <mat-button-toggle value="move" matTooltip="Move mode">
-                            <mat-icon>open_with</mat-icon>
-                        </mat-button-toggle>
-                        <mat-button-toggle value="crop" matTooltip="Crop mode">
-                            <mat-icon>crop</mat-icon>
-                        </mat-button-toggle>
-                    </mat-button-toggle-group>
+              <div class="image-detail-toolbar" fxFlex="100">
+                  <div class="image-dimensions"><b>Width:</b> {{imageWidth}}px <b>Height:</b> {{imageHeight}}px</div>
+                  <span fxFlex></span>
+                  <div class="image-zoom">
+                      <button mat-icon-button color="accent" (click)="zoomChange(0.1, 'zoomIn')">
+                          <mat-icon>zoom_in</mat-icon>
+                      </button>
+                      <mat-slider [value]="sliderValue" (input)="zoomChange($event.value)" thumbLabel></mat-slider>
+                      <button mat-icon-button color="accent" (click)="zoomChange(-0.1, 'zoomOut')">
+                          <mat-icon>zoom_out</mat-icon>
+                      </button>
+                  </div>
+              </div>
+              <div class="cropped-image-buttons" [style.visibility]="!croppedImage ? 'hidden' : 'visible'">
+                  <button mat-raised-button color="accent" (click)="saveImage()">
+                      <mat-icon>done</mat-icon>
+                      <span>Save</span>
+                  </button>
+                  <button mat-raised-button color="accent" (click)="undoCrop()">
+                      <mat-icon>undo</mat-icon>
+                      <span>Undo</span>
+                  </button>
+              </div>
+              <div fxLayout="row" [style.visibility]="croppedImage ? 'hidden' : 'visible'">
+                  <mat-button-toggle-group
+                          #dragMode="matButtonToggleGroup"
+                          (change)="cropper.setDragMode($event.value)"
+                          value="move">
+                      <mat-button-toggle value="move" matTooltip="Move mode">
+                          <mat-icon>open_with</mat-icon>
+                      </mat-button-toggle>
+                      <mat-button-toggle value="crop" matTooltip="Crop mode">
+                          <mat-icon>crop</mat-icon>
+                      </mat-button-toggle>
+                  </mat-button-toggle-group>
 
-                    <mat-button-toggle-group
-                            #selectRatio="matButtonToggleGroup"
-                            (change)="setRatio($event.value)"
-                            value="{{ratios[0].value}}">
-                        <mat-button-toggle *ngFor="let ratio of ratios" value="{{ratio.value}}" matTooltip="Aspect ratio">
-                            {{ratio.text}}
-                        </mat-button-toggle>
-                    </mat-button-toggle-group>
+                  <mat-button-toggle-group
+                          #selectRatio="matButtonToggleGroup"
+                          (change)="setRatio($event.value)"
+                          value="{{ratios[0].value}}">
+                      <mat-button-toggle *ngFor="let ratio of ratios" value="{{ratio.value}}" matTooltip="Aspect ratio">
+                          {{ratio.text}}
+                      </mat-button-toggle>
+                  </mat-button-toggle-group>
 
-                </div>
-                <div
-                        class="canvas-config"
-                        fxLayout="row"
-                        fxLayoutAlign="start space-between"
-                        fxLayoutGap="10px"
-                        [style.visibility]="croppedImage ? 'hidden' : 'visible'">
+              </div>
+              <div
+                      class="canvas-config"
+                      fxLayout="row"
+                      fxLayoutAlign="start space-between"
+                      fxLayoutGap="10px"
+                      [style.visibility]="croppedImage ? 'hidden' : 'visible'">
 
-                    <mat-form-field color="accent"  fxFlex="100">
-                        <input matInput
-                               fxFlex="100"
-                               id="imageWidth"
-                               placeholder="Canvas width"
-                               type="number"
-                               (ngModelChange)="setImageWidth($event)"
-                               [ngModel]="canvasWidth">
-                    </mat-form-field>
+                  <mat-form-field color="accent" fxFlex="100">
+                      <input matInput
+                             fxFlex="100"
+                             id="imageWidth"
+                             placeholder="Canvas width"
+                             type="number"
+                             (ngModelChange)="setImageWidth($event)"
+                             [ngModel]="canvasWidth">
+                  </mat-form-field>
 
-                    <mat-form-field color="accent"  fxFlex="100">
-                        <input matInput
-                               fxFlex="100"
-                               id="imageHeight"
-                               placeholder="Canvas height"
-                               type="number"
-                               (ngModelChange)="setImageHeight($event)"
-                               [ngModel]="canvasHeight">
-                    </mat-form-field>
+                  <mat-form-field color="accent" fxFlex="100">
+                      <input matInput
+                             fxFlex="100"
+                             id="imageHeight"
+                             placeholder="Canvas height"
+                             type="number"
+                             (ngModelChange)="setImageHeight($event)"
+                             [ngModel]="canvasHeight">
+                  </mat-form-field>
 
-                    <mat-form-field color="accent"  fxFlex="100">
-                        <input matInput
-                               fxFlex="100"
-                               id="cropBoxWidth"
-                               placeholder="Cropbox width"
-                               type="number"
-                               (ngModelChange)="setCropBoxWidth($event)"
-                               [ngModel]="cropBoxWidth">
-                    </mat-form-field>
+                  <mat-form-field color="accent" fxFlex="100">
+                      <input matInput
+                             fxFlex="100"
+                             id="cropBoxWidth"
+                             placeholder="Cropbox width"
+                             type="number"
+                             (ngModelChange)="setCropBoxWidth($event)"
+                             [ngModel]="cropBoxWidth">
+                  </mat-form-field>
 
-                    <mat-form-field color="accent"  fxFlex="100">
-                        <input matInput
-                               fxFlex="100"
-                               id="cropBoxHeight"
-                               placeholder="Cropbox height"
-                               type="number"
-                               (ngModelChange)="setCropBoxHeight($event)"
-                               [ngModel]="cropBoxHeight">
-                    </mat-form-field>
+                  <mat-form-field color="accent" fxFlex="100">
+                      <input matInput
+                             fxFlex="100"
+                             id="cropBoxHeight"
+                             placeholder="Cropbox height"
+                             type="number"
+                             (ngModelChange)="setCropBoxHeight($event)"
+                             [ngModel]="cropBoxHeight">
+                  </mat-form-field>
 
-                    <!--<md2-colorpicker [(ngModel)]="canvasFillColor"  placeholder="Canvas color"></md2-colorpicker>-->
+                  <!--<md2-colorpicker [(ngModel)]="canvasFillColor"  placeholder="Canvas color"></md2-colorpicker>-->
 
-                </div>
-            </div>
+              </div>
+          </div>
 
-        </div>
+      </div>
 
-    `,
+  `,
                 styles: [`
+
+      .ngx-image-editor-component .photo-editor-header {
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          width: 100%;
+          padding: 5px 0;
+          z-index: 100;
+          margin: 0;
+      }
+
+      .ngx-image-editor-component .photo-editor-header > .mat-icon {
+          padding: 0 10px;
+      }
+
+      .ngx-image-editor-component .photo-editor-header > .file-name {
+          flex: 1 1 100%;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+      }
+
+      .ngx-image-editor-component mat-progress-spinner {
+          position: absolute;
+      }
+
+      .ngx-image-editor-component .dialog-crop-container {
+          width: 800px;
+          height: 400px;
+          overflow: hidden;
+      }
+
+      .ngx-image-editor-component .cropper-bg {
+          background-image: none !important;
+      }
+
+      .ngx-image-editor-component .cropper-bg > .cropper-modal {
+          opacity: 1 !important;
+          background: none;
+      }
+
+      .ngx-image-editor-component .img-container {
+          width: 800px !important;
+          height: 400px !important;
+      }
+
+      .ngx-image-editor-component .cropped-image img {
+          width: auto !important;
+          height: auto !important;
+          max-width: 800px !important;
+          max-height: 400px !important;
+      }
+
+      .ngx-image-editor-component .dialog-button-actions {
+          position: relative;
+          padding: 0;
+      }
+
+      .ngx-image-editor-component .dialog-button-actions:last-child {
+          margin: 0;
+      }
+
+      .ngx-image-editor-component .dialog-button-actions > DIV mat-button-toggle-group {
+          margin: 20px;
+      }
+
+      .ngx-image-editor-component .dialog-button-actions .cropped-image-buttons {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+      }
+
+      .ngx-image-editor-component .dialog-button-actions > .canvas-config {
+          padding: 5px;
+          margin: 0 20px;
+      }
+
       
-        .ngx-image-editor-component .photo-editor-header {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            width: 100%;
-            padding: 5px 0;
-            background: #666;
-            color: #FFF;
-            z-index: 100;
-            margin: 0;
-        }
-        .ngx-image-editor-component .photo-editor-header > .mat-icon {
-            padding: 0 10px;
-        }
-        .ngx-image-editor-component .photo-editor-header > .file-name {
-            flex: 1 1 100%;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-        .ngx-image-editor-component mat-progress-spinner {
-            position: absolute;
-        }
-        .ngx-image-editor-component .dialog-crop-container {
-            width: 800px;
-            height: 400px;
-            overflow: hidden;
-        }
-        .ngx-image-editor-component .cropper-bg {
-            background-image: none !important;
-        }
-        .ngx-image-editor-component .cropper-bg > .cropper-modal {
-            opacity: 1 !important;
-            background: none;
-        }
-        .ngx-image-editor-component .img-container {
-            width: 800px !important;
-            height: 400px !important;
-        }
-        .ngx-image-editor-component .cropped-image img {
-            width: auto !important;
-            height: auto !important;
-            max-width: 800px !important;
-            max-height: 400px !important;
-        }
-        .ngx-image-editor-component .dialog-button-actions {
-            background: #666;
-            position: relative;
-            padding: 0;
-        }
-        .ngx-image-editor-component .dialog-button-actions:last-child {
-            margin: 0;
-        }
-        .ngx-image-editor-component .dialog-button-actions > DIV mat-button-toggle-group {
-            margin: 20px;
-            background-color: white;
-        }
-        .ngx-image-editor-component .dialog-button-actions .cropped-image-buttons {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        .ngx-image-editor-component .dialog-button-actions > .canvas-config {
-            padding: 5px;
-            margin: 0 20px;
-        }
-        .ngx-image-editor-component .dialog-button-actions > .canvas-config .mat-input-wrapper > .mat-input-table > .mat-input-infix {
-            color: white !important;
-        }
-        .ngx-image-editor-component .dialog-button-actions > .canvas-config .mat-input-placeholder.mat-empty:not(.mat-focused) {
-            color: white;
-        }
-        .ngx-image-editor-component .dialog-button-actions > .canvas-config .mat-input-underline {
-            border-color: white;
-        }
-        .ngx-image-editor-component .dialog-button-actions > .canvas-config md2-colorpicker {
-            width: 200px !important;
-        }
-        .ngx-image-editor-component .dialog-button-actions > .canvas-config md2-colorpicker .md2-colorpicker-input {
-            border-bottom: 1px solid white !important;
-        }
-        .ngx-image-editor-component .dialog-button-actions > .canvas-config md2-colorpicker .color-picker-selector .md2-colorpicker-input .md2-colorpicker-value {
-            color: white !important;
-        }
-        .ngx-image-editor-component .dialog-button-actions > .canvas-config md2-colorpicker .color-picker-selector {
-            padding: 15px 0 !important;
-        }
-        .ngx-image-editor-component .dialog-button-actions > .canvas-config md2-colorpicker .color-picker-selector .md2-colorpicker-preview {
-            top: 15px !important;
-        }
-        .ngx-image-editor-component .dialog-button-actions > .canvas-config md2-colorpicker .input-focused {
-            color: #6ec140 !important;
-            border-bottom-width: 1.2px;
-            border-color: #6ec140 !important;
-        }
-        .ngx-image-editor-component .dialog-button-actions > .canvas-config md2-colorpicker .input-focused .md2-colorpicker-placeholder {
-            color: #6ec140 !important;
-        }
-        .ngx-image-editor-component .dialog-button-actions .image-detail-toolbar {
-            background-color: #272727;
-            color: white;
-            height: 40px;
-            line-height: 40px;
-        }
-        .ngx-image-editor-component .dialog-button-actions .image-detail-toolbar > .image-zoom {
-            display: flex;
-            align-items: center;
-            padding: 0 10px;
-        }
-        .ngx-image-editor-component .dialog-button-actions .image-detail-toolbar > .image-zoom .mat-slider-horizontal .mat-slider-wrapper {
-            top: 23px !important;
-        }
-        .ngx-image-editor-component .dialog-button-actions .image-detail-toolbar > .image-zoom .mat-slider-horizontal .mat-slider-wrapper .mat-slider-thumb-container {
-            cursor: grab;
-        }
-        .ngx-image-editor-component .dialog-button-actions .image-detail-toolbar > .image-zoom .mat-slider-horizontal .mat-slider-wrapper .mat-slider-thumb-container > .mat-slider-thumb {
-            background-color: #6ec140 !important;
-        }
-        .ngx-image-editor-component .dialog-button-actions .image-detail-toolbar > .image-dimensions {
-            padding: 0 10px;
-            font-size: 14px;
-            width: 200px;
-            max-width: 200px;
-        }
 
-        .mat-dialog-content {
-            margin: 0;
-            padding: 0;
-        }
+      .ngx-image-editor-component .dialog-button-actions > .canvas-config md2-colorpicker {
+          width: 200px !important;
+      }
+      
 
-        .mat-dialog-container {
-            overflow: hidden !important;
-            padding: 0;
-        }
+
+      .ngx-image-editor-component .dialog-button-actions > .canvas-config md2-colorpicker .color-picker-selector {
+          padding: 15px 0 !important;
+      }
+
+      .ngx-image-editor-component .dialog-button-actions > .canvas-config md2-colorpicker .color-picker-selector .md2-colorpicker-preview {
+          top: 15px !important;
+      }
+      
+
+      .ngx-image-editor-component .dialog-button-actions .image-detail-toolbar > .image-zoom {
+          display: flex;
+          align-items: center;
+          padding: 0 10px;
+      }
+
+      .ngx-image-editor-component .dialog-button-actions .image-detail-toolbar > .image-zoom .mat-slider-horizontal .mat-slider-wrapper {
+          top: 23px !important;
+      }
+
+      .ngx-image-editor-component .dialog-button-actions .image-detail-toolbar > .image-zoom .mat-slider-horizontal .mat-slider-wrapper .mat-slider-thumb-container {
+          cursor: grab;
+      }
+      
+
+      .ngx-image-editor-component .dialog-button-actions .image-detail-toolbar > .image-dimensions {
+          padding: 0 10px;
+          font-size: 14px;
+          width: 200px;
+          max-width: 200px;
+      }
+
+   
 
 
 
@@ -600,7 +583,7 @@ NgxImageEditorComponent.decorators = [
 
 
 
-    `],
+  `],
                 encapsulation: ViewEncapsulation.None
             },] },
 ];
@@ -613,6 +596,10 @@ NgxImageEditorComponent.propDecorators = {
     "close": [{ type: Output },],
     "file": [{ type: Output },],
 };
+/**
+ * @record
+ */
+
 class EditorOptions {
 }
 /**
