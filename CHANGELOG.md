@@ -12,4 +12,4 @@ All notable changes to this project will be documented in this file.
 ### Changes
 - Upgraded Angular, Angular Material, Angular Flex Layout.
 - Removed all color-related styles
-- Removed modal functionality (we shouldn't assume that users may use it in a modal)
+- Removed modal functionality (we shouldn't assume ttrthat users may use it in a modal)
