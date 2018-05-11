@@ -17,8 +17,6 @@ Awesome editor for Angular 6 based on [Angular Material](https://github.com/angu
 
 ## Getting started
 
-### Pre-requisites:
-
 ##### Step 1: Install Angular Material (+ Material Icons) and Angular Flex Layout
 
 - [Angular Material](https://material.angular.io/guide/getting-started)
@@ -29,7 +27,7 @@ Awesome editor for Angular 6 based on [Angular Material](https://github.com/angu
 ```bash
     npm install --save cropperjs
 ```
-##### Step 2: Add `cropperjs` file paths in your `.angular.json`
+##### Step 3: Add `cropperjs` file paths in your `.angular.json`
       
 ```json
 }
@@ -43,12 +41,12 @@ Awesome editor for Angular 6 based on [Angular Material](https://github.com/angu
 ```
 
 
-#####  Step 3: Install `ngx-image-editor`:
+#####  Step 4: Install `ngx-image-editor`:
 ```bash
      npm install --save ngx-image-editor
 ```
     
-##### Step 4: Import the `NgxImageEditorModule` within your app:
+##### Step 5: Import the `NgxImageEditorModule` within your app:
 ```js
       import {NgxImageEditorModule} from "ngx-image-editor";
 
@@ -59,8 +57,13 @@ Awesome editor for Angular 6 based on [Angular Material](https://github.com/angu
       })
 ```
 
-### API
 
+##### Step 6: Use within your application:
+```html
+   <ngx-image-editor [config]="yourConfig"></ngx-image-editor>
+```
+
+### API
 
    | Property          | Description                                                    |
    | -------------- | -------------------------------------------------------------- |
@@ -74,7 +77,7 @@ Awesome editor for Angular 6 based on [Angular Material](https://github.com/angu
 | ImageName         | Name of the image.             |
 | ImageUrl | URL of the image (if it coming from a CDN) .           |
 | File | File object of the image (if it is being uploaded through the browser.          |
-| ImageType    | Type of the image (default is `image/jpeg`)             |
+| ImageType    | Type of the image (default is `image/jpeg`).            |
 | AspectRatios | Array of aspect ratios. Available options: `0:0`, `1:1` , `2:3` ,`4:3`, `16:9`l . (default is `0:0`)             |
 
 
@@ -117,8 +120,6 @@ export class AppComponent {
 
 
 ### Contributors
-
-## Team
 
 | [![Hristo Georgiev](https://github.com/hggeorgiev.png?size=100)](https://github.com/hggeorgiev) | [![Taulant Disha](https://github.com/taulantdisha.png?size=100)](https://github.com/taulantdisha) |
 |---------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
