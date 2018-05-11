@@ -10,12 +10,12 @@ node_js:
 
 install:
   - yarn global add @angular/cli
-  - yarn add  @angular/compiler
   - yarn global add @angular/compiler-cli
   - yarn global add ng-packagr
   - yarn global add tsickle
   - yarn global add typescript
   - yarn install
+  - yarn add  @angular/compiler
 
 after_success:
   - npm run semantic-release
