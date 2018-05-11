@@ -11,7 +11,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
  */
 class NgxImageEditorComponent {
     constructor() {
-        this.close = new EventEmitter();
         this.file = new EventEmitter();
         this.zoomIn = 0;
         this.sliderValue = 0;
@@ -313,12 +312,6 @@ NgxImageEditorComponent.decorators = [
                       (click)="centerCanvas()">
                   <mat-icon>center_focus_strong</mat-icon>
               </button>
-              <button mat-icon-button matTooltip="Fullscreen">
-                  <mat-icon>fullscreen</mat-icon>
-              </button>
-              <button mat-icon-button matTooltip="Close" (click)="close.emit()">
-                  <mat-icon>clear</mat-icon>
-              </button>
           </div>
 
           <div mat-dialog-content
@@ -540,26 +533,12 @@ NgxImageEditorComponent.decorators = [
       }
       
 
-
-      .ngx-image-editor-component .dialog-button-actions > .canvas-config md2-colorpicker .color-picker-selector {
-          padding: 15px 0 !important;
-      }
-
-      .ngx-image-editor-component .dialog-button-actions > .canvas-config md2-colorpicker .color-picker-selector .md2-colorpicker-preview {
-          top: 15px !important;
-      }
-      
-
       .ngx-image-editor-component .dialog-button-actions .image-detail-toolbar > .image-zoom {
           display: flex;
           align-items: center;
           padding: 0 10px;
       }
-
-      .ngx-image-editor-component .dialog-button-actions .image-detail-toolbar > .image-zoom .mat-slider-horizontal .mat-slider-wrapper {
-          top: 23px !important;
-      }
-
+      
       .ngx-image-editor-component .dialog-button-actions .image-detail-toolbar > .image-zoom .mat-slider-horizontal .mat-slider-wrapper .mat-slider-thumb-container {
           cursor: grab;
       }
@@ -593,7 +572,6 @@ NgxImageEditorComponent.propDecorators = {
     "previewImage": [{ type: ViewChild, args: ['previewimg',] },],
     "croppedImg": [{ type: ViewChild, args: ['croppedImg',] },],
     "config": [{ type: Input },],
-    "close": [{ type: Output },],
     "file": [{ type: Output },],
 };
 /**

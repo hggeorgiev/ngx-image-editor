@@ -64,8 +64,7 @@ Awesome editor for Angular 6 based on [Angular Material](https://github.com/angu
 
    | Property          | Description                                                    |
    | -------------- | -------------------------------------------------------------- |
-   | `[config]`         | An object containing editor configuration (see **Configuration**)          |
-   | `(close)` | Fired when the `close` button is pressed          |
+   | `[config]`         | An object containing editor configuration (see **Configuration**)                  |
    | `(file)` | The emitted file after editing.         |
 
 

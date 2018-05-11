@@ -30,12 +30,6 @@ declare const Cropper: any;
                       (click)="centerCanvas()">
                   <mat-icon>center_focus_strong</mat-icon>
               </button>
-              <button mat-icon-button matTooltip="Fullscreen">
-                  <mat-icon>fullscreen</mat-icon>
-              </button>
-              <button mat-icon-button matTooltip="Close" (click)="close.emit()">
-                  <mat-icon>clear</mat-icon>
-              </button>
           </div>
 
           <div mat-dialog-content
@@ -257,26 +251,12 @@ declare const Cropper: any;
       }
       
 
-
-      .ngx-image-editor-component .dialog-button-actions > .canvas-config md2-colorpicker .color-picker-selector {
-          padding: 15px 0 !important;
-      }
-
-      .ngx-image-editor-component .dialog-button-actions > .canvas-config md2-colorpicker .color-picker-selector .md2-colorpicker-preview {
-          top: 15px !important;
-      }
-      
-
       .ngx-image-editor-component .dialog-button-actions .image-detail-toolbar > .image-zoom {
           display: flex;
           align-items: center;
           padding: 0 10px;
       }
-
-      .ngx-image-editor-component .dialog-button-actions .image-detail-toolbar > .image-zoom .mat-slider-horizontal .mat-slider-wrapper {
-          top: 23px !important;
-      }
-
+      
       .ngx-image-editor-component .dialog-button-actions .image-detail-toolbar > .image-zoom .mat-slider-horizontal .mat-slider-wrapper .mat-slider-thumb-container {
           cursor: grab;
       }
@@ -333,9 +313,6 @@ export class NgxImageEditorComponent implements AfterViewInit, OnInit, OnDestroy
   public set config(config: EditorOptions) {
     this.state = config;
   }
-
-  @Output()
-  public close: EventEmitter<void> = new EventEmitter<void>();
 
   @Output()
   public file: EventEmitter<File> = new EventEmitter<File>();

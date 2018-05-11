@@ -19,7 +19,6 @@ export declare class NgxImageEditorComponent implements AfterViewInit, OnInit, O
     previewImage: any;
     croppedImg: any;
     config: EditorOptions;
-    close: EventEmitter<void>;
     file: EventEmitter<File>;
     constructor();
     ngOnInit(): void;
