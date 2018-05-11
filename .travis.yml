@@ -16,7 +16,7 @@ install:
   - yarn global add typescript
   - yarn global add semantic-release
   - yarn install
-  - yarn add  @angular/compilerx
+  - yarn add  @angular/compiler
   - npm run semantic-release
 branches:
   only:
