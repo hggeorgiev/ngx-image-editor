@@ -14,6 +14,7 @@ install:
   - yarn global add ng-packagr
   - yarn global add tsickle
   - yarn global add typescript
+  - yarn global add semantic-release
   - yarn install
   - yarn add  @angular/compiler
   - npm install --save-dev @angular/compiler
