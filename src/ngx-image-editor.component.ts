@@ -65,7 +65,7 @@ declare const Cropper: any;
                   fxFlex="nogrow">
 
               <div class="image-detail-toolbar" fxFlex="100">
-                  <div class="image-dimensions"><b>Width:</b> {{imageWidth}}px <b>Height:</b> {{imageHeight}}px</div>
+                  <div class="image-dimensions"><b>Width:</b> <span>{{imageWidth}}px</span> <b>Height:</b> <span>{{imageHeight}}px</span></div>
                   <span fxFlex></span>
                   <div class="image-zoom">
                       <button mat-icon-button color="accent" (click)="zoomChange(0.1, 'zoomIn')">
