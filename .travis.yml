@@ -1,5 +1,6 @@
 language: node_js
 cache:
+  yarn: true
   directories:
     - ~/.yarn
     - .ng_pkg_build
@@ -9,7 +10,7 @@ node_js:
   - '9'
 
 install:
-  - yarn install -g @angular/cli
+  - npm install -g @angular/cli
   - yarn install -g @angular/compiler
   - yarn install -g @angular/compiler-cli
   - yarn install -g ng-packagr
