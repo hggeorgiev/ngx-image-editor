@@ -6,7 +6,7 @@ cache:
 notifications:
   email: false
 node_js:
-  - '9'
+  - '10'
 
 install:
   - yarn global add @angular/cli
