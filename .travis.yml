@@ -10,12 +10,12 @@ node_js:
   - '9'
 
 install:
-  - npm install -g @angular/cli
-  - yarn install -g @angular/compiler
-  - yarn install -g @angular/compiler-cli
-  - yarn install -g ng-packagr
-  - yarn install -g tsickle
-  - yarn install -g typescript
+  - npm global add @angular/cli
+  - yarn add  @angular/compiler
+  - yarn global add @angular/compiler-cli
+  - yarn global add ng-packagr
+  - yarn global add tsickle
+  - yarn global add typescript
   - yarn install
 
 after_success:
