@@ -13,19 +13,16 @@ Awesome editor for Angular 6 based on [Angular Material](https://github.com/angu
 [![npm version](https://badge.fury.io/js/ngx-image-editor.svg)](https://badge.fury.io/js/ngx-image-editor)
 [![Build Status](https://travis-ci.org/Centroida/ngx-image-editor.svg?branch=master)](https://travis-ci.org/hggeorgiev/ngx-image-editor)
 
-**[Live Demo](https://centroida.github.io/ngx-image-editor/)**
+**[Live Demo on Slackblitz](https://stackblitz.com/edit/ngx-image-editor-demo)**
 
 ## Getting started
 
 ### Pre-requisites:
 
-##### Step 1: Install Angular Material and Angular Flex Layout
-
-**ngx-image-editor will NOT work properly if the following dependencies are not installed:**
+##### Step 1: Install Angular Material (+ Material Icons) and Angular Flex Layout
 
 - [Angular Material](https://material.angular.io/guide/getting-started)
 - [Angular Flex-Layout](https://github.com/angular/flex-layout)
-- [Cropperjs](https://github.com/fengyuanchen/cropper)
 
 ##### Step 2: Install cropperjs
     
@@ -46,14 +43,12 @@ Awesome editor for Angular 6 based on [Angular Material](https://github.com/angu
 ```
 
 
-### Usage:
-
-#####  Step 1: Install `ngx-image-editor`:
+#####  Step 3: Install `ngx-image-editor`:
 ```bash
      npm install --save ngx-image-editor
 ```
     
-##### Step 2: Import the `NgxImageEditorModule` within your app:
+##### Step 4: Import the `NgxImageEditorModule` within your app:
 ```js
       import {NgxImageEditorModule} from "ngx-image-editor";
 
@@ -65,26 +60,23 @@ Awesome editor for Angular 6 based on [Angular Material](https://github.com/angu
 ```
 
 ### API
-   **@Input()**
-   config: EditorOptions
 
-   **@Output()**
-   close: EventEmitter<void>
 
-   **@Output()**
-   file: EventEmitter<File>
+   | Property          | Description                                                    |
+   | -------------- | -------------------------------------------------------------- |
+   | `[config]`         | An object containing editor configuration (see **Configuration**)          |
+   | `(close)` | Fired when the `close` button is pressed          |
+   | `(file)` | The emitted file after editing.         |
 
-### Configuration
-  - ImageName: `String` (required)
-  - ImageUrl: `String`  (optional)
-  - ImageType: `String` (optional)
-    - Default type is image/jpeg
-  - File: `File` (optional)
-  - AspectRatios: `RatioType[]` (optional)
-    - '6:9' | '4:3' | '1:1' | '2:3' | 'Default'
 
-**Notes:**
-- In the `EditorOptions` can pass either `ImageUrl` or `File`.
+#### Configuration
+| Property          | Description                                                    |
+| -------------- | -------------------------------------------------------------- |
+| ImageName         | Name of the image.             |
+| ImageUrl | URL of the image (if it coming from a CDN) .           |
+| File | File object of the image (if it is being uploaded through the browser.          |
+| ImageType    | Type of the image (default is `image/jpeg`)             |
+| AspectRatios | Array of aspect ratios. Available options: `0:0`, `1:1` , `2:3` ,`4:3`, `16:9`l . (default is `0:0`)             |
 
 
 ### Example
@@ -125,9 +117,6 @@ export class AppComponent {
 ```
 
 
-## TODO
-    - Fix adding of styles/scripts
-    - Fix requirements (need animationsmodule)
 
 
 
