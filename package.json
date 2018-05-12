@@ -6,7 +6,7 @@
     "test": "echo \"Test success\"",
     "clean": "rm -rf dist ",
     "build": "ng-packagr -p ng-package.json",
-    "semantic-release": "npm run clean  && npm run build && semantic-release --prepare && npm publish dist.tgz && semantic-release post"
+    "semantic-release": "npm run clean  && npm run build && semantic-release pre && npm publish dist.tgz && semantic-release post"
   },
   "main": "./bundles/ng.umd.js",
   "module": "./ngx-image-editor.es5.js",
