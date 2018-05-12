@@ -1,12 +1,12 @@
 {
   "name": "ngx-image-editor",
-  "version": "1.0.0-semantically-released",
+  "version": "1.0.0-semantic-release",
   "description": "Angular 5 Image Editor",
   "scripts": {
     "test": "echo \"Test success\"",
     "clean": "rm -rf dist ",
     "build": "ng-packagr -p ng-package.json",
-    "semantic-release": "npm run clean  && npm run build && semantic-release pre && npm publish dist.tgz && semantic-release post"
+    "semantic-release": "npm run clean  && npm run build && semantic-release --prepare && semantic-release --publish "
   },
   "main": "./bundles/ng.umd.js",
   "module": "./ngx-image-editor.es5.js",
@@ -50,7 +50,7 @@
     "core-js": "^2.5.3",
     "ng-packagr": "^2.4.4",
     "rxjs": "^6.1.0",
-    "semantic-release": "^8.2.0",
+    "semantic-release": "^15.4.1",
     "ts-node": "^5.0.1",
     "tslint": "^5.9.1",
     "typescript": "2.7.2",
@@ -66,6 +66,7 @@
   },
   "release": {
     "debug": false,
+    "pkgRoot": "dist",
     "analyzeCommits": {
       "preset": "angular",
       "releaseRules": [
