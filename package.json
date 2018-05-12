@@ -27,7 +27,7 @@
     "Image Preview",
     "Cropper"
   ],
-  "author": "Hristo Georgiev",
+  "author": "Centroida",
   "license": "MIT",
   "homepage": "https://github.com/Centroida/ngx-image-editor",
   "devDependencies": {
@@ -65,6 +65,7 @@
     "tslib": "^1.9.0"
   },
   "release": {
+    "debug": false,
     "analyzeCommits": {
       "preset": "angular",
       "releaseRules": [

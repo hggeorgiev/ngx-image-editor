@@ -59,6 +59,7 @@
     "tslib": "^1.9.0"
   },
   "release": {
+    "debug": false,
     "analyzeCommits": {
       "preset": "angular",
       "releaseRules": [
