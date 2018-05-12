@@ -6,17 +6,11 @@ cache:
 notifications:
   email: false
 node_js:
-  - '8'
+  - '10'
 
 install:
-  - yarn global add @angular/cli
-  - yarn global add @angular/compiler-cli
-  - yarn global add ng-packagr
-  - yarn global add tsickle
-  - yarn global add typescript
   - yarn global add semantic-release
   - yarn install
-  - yarn add  @angular/compiler
   - npm run semantic-release
 branches:
   only:

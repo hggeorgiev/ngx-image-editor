@@ -2,15 +2,9 @@
   "name": "ngx-image-editor",
   "version": "1.0.0-semantically-released",
   "description": "Angular 5 Image Editor",
-  "scripts": {
-    "test": "echo \"Test success\"",
-    "clean": "rm -rf dist ",
-    "build": "ng-packagr -p ng-package.json",
-    "semantic-release": "npm run clean  && npm run build && semantic-release --prepare && npm publish dist.tgz && semantic-release post"
-  },
-  "main": "./bundles/ng.umd.js",
-  "module": "./ngx-image-editor.es5.js",
-  "typings": "./ngx-image-editor.d.ts",
+  "main": "bundles/ngx-image-editor.umd.js",
+  "module": "esm5/ngx-image-editor.js",
+  "typings": "ngx-image-editor.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/Centroida/ngx-image-editor"
@@ -84,5 +78,10 @@
         }
       ]
     }
+  },
+  "es2015": "esm2015/ngx-image-editor.js",
+  "metadata": "ngx-image-editor.metadata.json",
+  "dependencies": {
+    "tslib": "^1.9.0"
   }
 }

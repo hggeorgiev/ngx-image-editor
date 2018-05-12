@@ -8,8 +8,6 @@
     "declaration": true,
     "moduleResolution": "node",
     "types": [
-      "hammerjs",
-      "jasmine",
       "node"
     ],
     "lib": ["es2015", "dom"]
