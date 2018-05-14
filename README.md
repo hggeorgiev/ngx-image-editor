@@ -25,7 +25,7 @@ Awesome editor for Angular 6 based on [Angular Material](https://github.com/angu
 ##### Step 2: Install cropperjs
     
 ```bash
-    npm install --save cropperjs
+    yarn add cropperjs
 ```
 ##### Step 3: Add `cropperjs` file paths in your `.angular.json`
       
@@ -43,7 +43,7 @@ Awesome editor for Angular 6 based on [Angular Material](https://github.com/angu
 
 #####  Step 4: Install `ngx-image-editor`:
 ```bash
-     npm install --save ngx-image-editor
+   yarn add ngx-image-editor
 ```
     
 ##### Step 5: Import the `NgxImageEditorModule` within your app:
